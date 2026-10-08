@@ -1,0 +1,5 @@
+requests>=2.28,<3
+ai2thor==5.0.0
+scipy
+numpy
+opencv-python
