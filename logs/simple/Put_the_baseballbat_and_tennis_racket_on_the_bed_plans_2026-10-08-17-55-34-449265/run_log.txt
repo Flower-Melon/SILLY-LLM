@@ -1,0 +1,16 @@
+Going to  BaseballBat|-01.87|+00.68|+00.39 {'x': -1.838509202003479, 'y': 0.47730204463005066, 'z': 0.35247668623924255}
+Going to  TennisRacket|+02.23|+00.31|-01.89 {'x': 2.23808217048645, 'y': 0.3026526868343353, 'z': -1.850733995437622}
+Reached:  TennisRacket
+PIcking:  TennisRacket
+Picking Up  TennisRacket|+02.23|+00.31|-01.89 {'x': 2.23808217048645, 'y': 0.3026526868343353, 'z': -1.850733995437622}
+Going to  Bed|-01.05|00.00|-01.85 {'x': -1.0189530849456787, 'y': 0.3232347071170807, 'z': -1.8523173332214355}
+Reached:  BaseballBat
+PIcking:  BaseballBat
+Picking Up  BaseballBat|-01.87|+00.68|+00.39 {'x': -1.838509202003479, 'y': 0.47730204463005066, 'z': 0.35247668623924255}
+Going to  Bed|-01.05|00.00|-01.85 {'x': -1.0189530849456787, 'y': 0.3232347071170807, 'z': -1.8523173332214355}
+Reached:  Bed
+Reached:  Bed
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_the_baseballbat_and_tennis_racket_on_the_bed_plans_2026-10-08-17-55-34-449265/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_the_baseballbat_and_tennis_racket_on_the_bed_plans_2026-10-08-17-55-34-449265/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_the_baseballbat_and_tennis_racket_on_the_bed_plans_2026-10-08-17-55-34-449265/video_top_view.mp4

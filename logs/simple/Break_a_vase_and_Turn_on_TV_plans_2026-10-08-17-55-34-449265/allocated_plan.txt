@@ -1,0 +1,73 @@
+# Task Allocation Solution
+
+## Task Decomposition
+
+**Main Task:** Break a vase and Turn on TV
+
+**SubTask 1:** Break a Vase
+- Skills Required: `GoToObject`, `BreakObject`
+- Object involved: Vase (mass = 1.0)
+
+**SubTask 2:** Turn on the TV
+- Skills Required: `GoToObject`, `SwitchOn`
+- Object involved: Television (mass = 9.83)
+
+**Dependency Analysis:** These two subtasks are independent — breaking the vase does not affect turning on the TV, and vice versa. They can be executed **in parallel**.
+
+---
+
+## Robot Capability Analysis
+
+All three robots have **identical skill sets** (13 skills each) and **identical mass capacity** (100 each):
+
+| Robot | Relevant Skills | Mass Capacity |
+|-------|----------------|---------------|
+| robot1 | GoToObject, BreakObject, SwitchOn | 100 |
+| robot2 | GoToObject, BreakObject, SwitchOn | 100 |
+| robot3 | GoToObject, BreakObject, SwitchOn | 100 |
+
+Since all robots share the same skills and mass capacity, and all objects have mass well below 100, **any single robot can perform either subtask alone**. No teams are required.
+
+---
+
+## Allocation
+
+- **SubTask 1 (Break a Vase):** Requires `GoToObject` + `BreakObject`. Vase mass = 1.0 ≤ 100. → Assign to **robot1**.
+- **SubTask 2 (Turn on the TV):** Requires `GoToObject` + `SwitchOn`. Television mass = 9.83 ≤ 100. → Assign to **robot2**.
+
+Since the subtasks are independent, they are assigned to **two different robots** and executed **in parallel**, minimizing total execution time while using the minimum number of robots needed to parallelize (2 robots).
+
+---
+
+## Execution Plan
+
+```python
+import threading
+
+def break_vase():
+    GoToObject('Vase')
+    BreakObject('Vase')
+
+def turn_on_tv():
+    GoToObject('Television')
+    SwitchOn('Television')
+
+# Parallel execution on two robots
+t1 = threading.Thread(target=break_vase)   # robot1
+t2 = threading.Thread(target=turn_on_tv)   # robot2
+t1.start(); t2.start()
+t1.join();  t2.join()
+```
+
+---
+
+## Summary
+
+| SubTask | Skills Required | Object (Mass) | Assigned Robot(s) | Execution |
+|---------|----------------|---------------|-------------------|-----------|
+| Break a Vase | GoToObject, BreakObject | Vase (1.0) | robot1 | Parallel |
+| Turn on the TV | GoToObject, SwitchOn | Television (9.83) | robot2 | Parallel |
+
+- **Robots used:** 2 (robot1, robot2) — the minimum needed to run both independent subtasks concurrently.
+- **Teams formed:** None — each subtask is fully satisfiable by a single robot (skills + mass).
+- **robot3** remains idle as a spare, since using it would not reduce the critical path (both subtasks already run in parallel).

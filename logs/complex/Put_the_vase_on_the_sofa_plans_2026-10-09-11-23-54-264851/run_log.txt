@@ -1,0 +1,26 @@
+Going to  Vase|-02.61|+00.58|-02.94 {'x': -2.608201503753662, 'y': 0.6142493486404419, 'z': -2.940585136413574}
+Navigation stalled; teleporting robot2 to (-2.5, 0.9027014970779419, -3.75)
+Reached:  Vase
+PIcking:  Vase
+Picking Up  Vase|-02.61|+00.58|-02.94 {'x': -2.608201503753662, 'y': 0.6142493486404419, 'z': -2.940585136413574}
+PIcking:  Vase
+Picking Up  Vase|-02.61|+00.58|-02.94 {'x': -2.670816659927368, 'y': 1.2637263536453247, 'z': -3.43257999420166}
+Going to  Sofa|-04.36|+00.01|-02.09 {'x': -4.358821868896484, 'y': 0.4098718464374542, 'z': -2.0896008014678955}
+Blocked by robot1; teleporting it away from the goal
+Navigation stalled; teleporting robot1 to (-5.25, 0.9027014970779419, -2.25)
+Reached:  Sofa
+Exception in thread Thread-2:
+Traceback (most recent call last):
+  File "/home/xb/miniconda3/envs/smartllm/lib/python3.9/threading.py", line 950, in _bootstrap_inner
+    self.run()
+  File "/home/xb/miniconda3/envs/smartllm/lib/python3.9/threading.py", line 888, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/xb/project/SILLY-LLM/logs/complex/Put_the_vase_on_the_sofa_plans_2026-10-09-11-23-54-264851/executable_plan.py", line 904, in put_vase_on_sofa
+    PutObject(robot_list, 'Vase', 'Sofa')
+  File "/home/xb/project/SILLY-LLM/logs/complex/Put_the_vase_on_the_sofa_plans_2026-10-09-11-23-54-264851/executable_plan.py", line 654, in PutObject
+    robot_name = robot['name']
+TypeError: list indices must be integers or slices, not str
+SR:0, TC:0, GCR:0.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_vase_on_the_sofa_plans_2026-10-09-11-23-54-264851/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_vase_on_the_sofa_plans_2026-10-09-11-23-54-264851/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_vase_on_the_sofa_plans_2026-10-09-11-23-54-264851/video_top_view.mp4

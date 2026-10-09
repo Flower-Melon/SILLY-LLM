@@ -1,0 +1,27 @@
+Going to  Watch|-02.10|+00.73|-00.06 {'x': -2.1033377647399902, 'y': 0.7511463165283203, 'z': -0.05778617784380913}
+Going to  KeyChain|-00.27|+00.70|+03.13 {'x': -0.3012649416923523, 'y': 0.7038602828979492, 'z': 3.134523630142212}
+Reached:  Watch
+PIcking:  Watch
+Picking Up  Watch|-02.10|+00.73|-00.06 {'x': -2.1033377647399902, 'y': 0.7511463165283203, 'z': -0.05778617784380913}
+Going to  Drawer|-00.31|+00.63|+03.37 {'x': -0.3052656948566437, 'y': 0.6373847723007202, 'z': 3.3692221641540527}
+Reached:  KeyChain
+PIcking:  KeyChain
+Picking Up  KeyChain|-00.27|+00.70|+03.13 {'x': -0.3012649416923523, 'y': 0.7038602828979492, 'z': 3.134523630142212}
+Blocked by robot2; teleporting it away from the goal
+Going to  Drawer|-00.31|+00.63|+03.37 {'x': -0.3052656948566437, 'y': 0.6373847723007202, 'z': 3.3692221641540527}
+Reached:  Drawer
+Going to  Drawer|-00.31|+00.63|+03.37 {'x': -0.31, 'y': 0.63, 'z': 3.37}
+Reached:  Drawer|-00.31|+00.63|+03.37
+Target openable Receptacle is CLOSED, can't place if target is not open!
+Going to  Drawer|-00.31|+00.63|+03.37 {'x': -0.31, 'y': 0.63, 'z': 3.37}
+Reached:  Drawer|-00.31|+00.63|+03.37
+Reached:  Drawer
+Going to  Drawer|-00.31|+00.63|+03.37 {'x': -0.31, 'y': 0.63, 'z': 3.37}
+Reached:  Drawer|-00.31|+00.63|+03.37
+Going to  Drawer|-00.31|+00.63|+03.37 {'x': -0.31, 'y': 0.63, 'z': 3.37}
+Reached:  Drawer|-00.31|+00.63|+03.37
+SR:0, TC:0, GCR:0.0, Exec:0.875, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_watch_and_Keychain_inside_the_drawer_plans_2026-10-09-11-23-54-264851/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_watch_and_Keychain_inside_the_drawer_plans_2026-10-09-11-23-54-264851/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_watch_and_Keychain_inside_the_drawer_plans_2026-10-09-11-23-54-264851/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_watch_and_Keychain_inside_the_drawer_plans_2026-10-09-11-23-54-264851/video_top_view.mp4

@@ -1,0 +1,43 @@
+# Task Allocation for "Turn off floor lamp"
+
+## Step 1: Task Decomposition
+
+**SubTask 1: Turn off the FloorLamp**
+- Skills Required: `GoToObject`, `SwitchOff`
+- Object involved: `FloorLamp` (mass = 3.93)
+- Dependencies: None (single independent subtask)
+
+## Step 2: Robot Skill & Mass Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, **SwitchOff**, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+| robot2 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, **SwitchOff**, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+
+**Skill check:** Both robots possess `GoToObject` and `SwitchOff` — the complete skill set required.
+
+**Mass check:** The FloorLamp has mass 3.93. Both robots have mass_capacity = 100, which is far greater than 3.93. No mass constraint issue.
+
+## Step 3: Allocation Decision
+
+- Both robots are **fully equivalent** (identical skills, identical mass capacity).
+- Only **one subtask** exists, so only **one robot** is needed.
+- No team formation required (single robot satisfies both skill and mass requirements).
+- No parallelization possible (only one subtask).
+
+**Assign SubTask 1 to robot1** (arbitrary tie-break; robot2 remains idle).
+
+## Step 4: Execution Plan
+
+```
+Sequential execution (single subtask):
+  robot1: GoToObject('FloorLamp') → SwitchOff('FloorLamp')
+```
+
+## Final Allocation Summary
+
+| SubTask | Skills Required | Mass Required | Assigned To | Execution |
+|---------|----------------|---------------|-------------|-----------|
+| Turn off the FloorLamp | GoToObject, SwitchOff | 3.93 | robot1 | Sequential (only task) |
+
+**Minimum robots used: 1** (robot1). robot2 is not needed since a single robot fully satisfies all skill and mass requirements, and there are no independent subtasks to parallelize.

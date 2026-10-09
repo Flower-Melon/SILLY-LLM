@@ -1,0 +1,66 @@
+# Task Allocation Solution: Make the Kitchen Dark
+
+## 1. Task Decomposition
+
+**Main Task:** Make the kitchen dark
+
+**SubTask 1:** Turn off the LightSwitch
+- **Skills Required:** `GoToObject`, `SwitchOff`
+- **Object involved:** `LightSwitch` (mass = 0.0)
+- **Dependencies:** None — this is the only subtask, so it can start immediately.
+
+## 2. Robot Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, **SwitchOff**, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+
+Only **one robot** is available.
+
+## 3. Skill & Mass Matching
+
+**Skill check for SubTask 1 (`GoToObject`, `SwitchOff`):**
+- robot1 possesses both `GoToObject` ✅ and `SwitchOff` ✅
+- No team needed — a single robot covers all required skills.
+
+**Mass check for SubTask 1:**
+- The only object interacted with is the `LightSwitch`, mass = **0.0**
+- robot1's mass capacity = **100** ≥ 0.0 ✅
+- No team needed — mass is well within capacity.
+
+## 4. Parallelism / Sequencing
+
+- There is only **one subtask**, so there is nothing to parallelize.
+- No preceding subtasks exist, so it can start immediately.
+- Execution is inherently **sequential** (single subtask, single robot).
+
+## 5. Allocation Result
+
+| SubTask | Skills Required | Assigned To | Mass Check | Execution |
+|---------|-----------------|-------------|------------|-----------|
+| Turn off the LightSwitch | GoToObject, SwitchOff | **robot1** | LightSwitch (0.0) ≤ 100 ✅ | Sequential (only task) |
+
+**Minimum number of robots used: 1 (robot1)**
+
+## 6. Execution Code
+
+```python
+def make_kitchen_dark():
+    # 0: SubTask 1: Turn off the LightSwitch
+    # 1: Go to the LightSwitch.
+    GoToObject('LightSwitch')
+    # 2: Switch off the LightSwitch to make the kitchen dark.
+    SwitchOff('LightSwitch')
+
+# Execute SubTask 1 using robot1
+make_kitchen_dark()
+```
+
+## Summary
+
+- **SubTasks identified:** 1 — *Turn off the LightSwitch*
+- **Skills required:** `GoToObject`, `SwitchOff`
+- **Mass involved:** 0.0 (LightSwitch), well within robot1's capacity of 100
+- **Team required?** No — robot1 alone satisfies all skill and mass requirements
+- **Parallel or sequential?** Sequential (single subtask)
+- **Robots used:** 1 (robot1) — the minimum possible

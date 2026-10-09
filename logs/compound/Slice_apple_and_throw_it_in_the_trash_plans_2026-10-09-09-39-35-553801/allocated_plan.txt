@@ -1,0 +1,74 @@
+# Task Allocation Solution: Slice Apple and Throw It in the Trash
+
+## Step 1: Task Decomposition
+
+The main task decomposes into **two sequential subtasks** (SubTask 2 depends on SubTask 1's output — the sliced apple):
+
+| SubTask | Description | Required Skills |
+|---------|-------------|-----------------|
+| SubTask 1 | Slice the Apple | `GoToObject`, `PickupObject`, `SliceObject`, `PutObject` |
+| SubTask 2 | Throw the Apple slices in the trash | `GoToObject`, `PickupObject`, `ThrowObject` |
+
+## Step 2: Robot Skill Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, SliceObject, PickupObject | 100 |
+| robot2 | GoToObject, PickupObject, PutObject | 100 |
+| robot3 | GoToObject, BreakObject, ThrowObject | 100 |
+
+**Key observation:** No single robot possesses all four skills required for SubTask 1 (`GoToObject`, `PickupObject`, `SliceObject`, `PutObject`). Likewise, no single robot possesses all three skills for SubTask 2 (`GoToObject`, `PickupObject`, `ThrowObject`).
+
+## Step 3: Mass Analysis
+
+- Apple mass = **0.2** (well within every robot's capacity of 100)
+- Knife mass = **0.18** (well within every robot's capacity of 100)
+- GarbageCan mass = **0.7** (well within every robot's capacity of 100)
+
+**Mass is not a constraint here** — all objects are far below any robot's capacity. Allocation is driven purely by **skills**.
+
+## Step 4: Team Formation
+
+### SubTask 1 — Slice the Apple
+Required skills: `GoToObject`, `PickupObject`, `SliceObject`, `PutObject`
+
+- robot1 provides: `GoToObject`, `PickupObject`, `SliceObject`
+- robot2 provides: `GoToObject`, `PickupObject`, `PutObject`
+
+**Team {robot1, robot2}** collectively covers all four required skills. ✅
+
+### SubTask 2 — Throw the Apple in the Trash
+Required skills: `GoToObject`, `PickupObject`, `ThrowObject`
+
+- robot1 provides: `GoToObject`, `PickupObject`
+- robot3 provides: `GoToObject`, `ThrowObject`
+
+**Team {robot1, robot3}** collectively covers all three required skills. ✅
+
+## Step 5: Execution Order
+
+The subtasks are **dependent** (SubTask 2 operates on the apple produced by SubTask 1), so they must run **sequentially**:
+
+```
+SubTask 1 (team robot1+robot2)  →  SubTask 2 (team robot1+robot3)
+```
+
+## Step 6: Minimum Robot Count
+
+The union of robots used across both subtasks is **{robot1, robot2, robot3}** — all three robots are needed because:
+- robot1 is the only robot with `SliceObject` (needed for SubTask 1) and is also needed for `PickupObject` in SubTask 2.
+- robot2 is the only robot with `PutObject` (needed to return the knife in SubTask 1).
+- robot3 is the only robot with `ThrowObject` (needed for SubTask 2).
+
+No robot can be dropped without breaking a skill requirement.
+
+## Final Allocation
+
+| SubTask | Assigned Team | Skills Covered | Mass Check | Execution |
+|---------|---------------|----------------|------------|-----------|
+| 1. Slice the Apple | **robot1 + robot2** | GoToObject, PickupObject, SliceObject, PutObject | Apple 0.2, Knife 0.18 ≤ 100 ✅ | First |
+| 2. Throw Apple in Trash | **robot1 + robot3** | GoToObject, PickupObject, ThrowObject | Apple 0.2, GarbageCan 0.7 ≤ 100 ✅ | After SubTask 1 |
+
+**Minimum robots required: 3** (robot1, robot2, robot3)
+
+**Execution mode:** Sequential — SubTask 2 cannot begin until SubTask 1 produces the sliced apple. Within each subtask, the team members act cooperatively (e.g., robot1 slices while robot2 handles the knife pickup/return), and robot1 is shared across both subtasks, which further enforces serialization.

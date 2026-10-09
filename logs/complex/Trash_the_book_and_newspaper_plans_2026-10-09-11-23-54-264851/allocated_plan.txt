@@ -1,0 +1,49 @@
+# Task Allocation Solution: Trash the Book and Newspaper
+
+## Step 1: Subtask Decomposition & Requirements
+
+| Subtask | Skills Required | Object | Mass |
+|---------|----------------|--------|------|
+| SubTask 1: Trash the Book | GoToObject, PickupObject, PutObject | Book | 0.5 |
+| SubTask 2: Trash the Newspaper | GoToObject, PickupObject, PutObject | Newspaper | 0.2 |
+
+Both subtasks are **independent** (no shared object, no ordering dependency), so they can run in **parallel**.
+
+## Step 2: Robot Capability Analysis
+
+All four robots share the **same skill set** (13 skills each), including `GoToObject`, `PickupObject`, and `PutObject`. So **skills are not a constraint** — every robot can perform either subtask.
+
+The differentiator is **mass capacity**:
+
+| Robot | Mass Capacity | Can carry Book (0.5)? | Can carry Newspaper (0.2)? |
+|-------|--------------|----------------------|---------------------------|
+| robot1 | 0.4 | ❌ No | ❌ No |
+| robot2 | 5.0 | ✅ Yes | ✅ Yes |
+| robot3 | 0.02 | ❌ No | ❌ No |
+| robot4 | 0.9 | ✅ Yes | ✅ Yes |
+
+## Step 3: Allocation Decision
+
+- **SubTask 1 (Book, mass 0.5):** Only robot2 (5.0) and robot4 (0.9) have sufficient capacity. Assign to **robot2**.
+- **SubTask 2 (Newspaper, mass 0.2):** Only robot2 (5.0) and robot4 (0.9) qualify. Assign to **robot4**.
+
+Since the two subtasks are independent and two capable robots exist, we run them **in parallel** — this uses the **minimum number of robots (2)** and minimizes makespan.
+
+> Note: robot1 (0.4) and robot3 (0.02) are excluded because their mass capacity is below the object masses. No team formation is needed since individual robots already satisfy both skill and mass requirements.
+
+## Step 4: Execution Plan
+
+```
+Parallel:
+  robot2 → trash_book()       (GoToObject Book → PickupObject Book → GoToObject GarbageCan → PutObject Book GarbageCan)
+  robot4 → trash_newspaper()  (GoToObject Newspaper → PickupObject Newspaper → GoToObject GarbageCan → PutObject Newspaper GarbageCan)
+```
+
+## Final Allocation Summary
+
+| Subtask | Assigned Robot | Skills Match | Mass Check | Execution |
+|---------|---------------|--------------|------------|-----------|
+| Trash the Book | robot2 | ✅ All 3 skills | 0.5 ≤ 5.0 ✅ | Parallel |
+| Trash the Newspaper | robot4 | ✅ All 3 skills | 0.2 ≤ 0.9 ✅ | Parallel |
+
+**Robots used: 2 (minimum possible).** No teams required — each subtask is fully satisfiable by a single robot on both skill and mass dimensions. The two subtasks are independent, so parallel execution is chosen to complete the overall task fastest.

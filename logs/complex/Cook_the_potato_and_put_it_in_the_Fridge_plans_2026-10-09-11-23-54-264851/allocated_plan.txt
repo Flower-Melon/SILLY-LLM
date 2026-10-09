@@ -1,0 +1,93 @@
+# TASK ALLOCATION ANALYSIS
+
+## Subtask Decomposition
+
+**SubTask 1: Cook the Potato**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`, `SwitchOn`, `SwitchOff`
+- Objects involved (mass):
+  - Potato: 0.18
+  - Pan: 0.67
+  - StoveBurner: 0.0
+  - StoveKnob: 0.0
+- **Maximum mass handled at once**: Pan with Potato = 0.67 + 0.18 = **0.85**
+
+**SubTask 2: Put the cooked Potato in the Fridge**
+- Skills Required: `GoToObject`, `PickupObject`, `OpenObject`, `PutObject`, `CloseObject`
+- Objects involved (mass):
+  - Potato: 0.18
+  - Fridge: 0.0
+- **Maximum mass handled at once**: Potato = **0.18**
+
+## Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 5 |
+| robot2 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 0.02 |
+
+**Observation**: Both robots share the **same skill set** (13 skills each). Therefore, allocation is driven by **mass capacity**.
+
+## Skill & Mass Matching
+
+**SubTask 1 (Cook the Potato):**
+- Skills: robot1 ✅, robot2 ✅ (both have all required skills)
+- Mass: needs ≥ 0.85
+  - robot1 (5) ✅
+  - robot2 (0.02) ❌ — cannot lift the Pan+Potato
+- **Assigned to: robot1**
+
+**SubTask 2 (Put Potato in Fridge):**
+- Skills: robot1 ✅, robot2 ✅
+- Mass: needs ≥ 0.18
+  - robot1 (5) ✅
+  - robot2 (0.02) ❌ — cannot lift the Potato
+- **Assigned to: robot1**
+
+## Dependency & Execution Order
+
+SubTask 2 depends on SubTask 1 (the potato must be cooked before it can be placed in the fridge). They **cannot be parallelized**.
+
+Since both subtasks require robot1 (the only robot with sufficient mass capacity), they must be executed **sequentially** on robot1.
+
+## Final Allocation
+
+| Subtask | Assigned Robot | Execution |
+|---------|---------------|-----------|
+| SubTask 1: Cook the Potato | robot1 | Sequential (first) |
+| SubTask 2: Put cooked Potato in Fridge | robot1 | Sequential (after SubTask 1) |
+
+**Minimum robots used: 1 (robot1)**
+
+```python
+# TASK ALLOCATION
+# Both robots share identical skill sets (13 skills each), so allocation is based on mass capacity.
+# SubTask 1 requires handling Pan+Potato (0.85 mass) -> only robot1 (capacity 5) qualifies.
+# SubTask 2 requires handling Potato (0.18 mass) -> only robot1 (capacity 5) qualifies.
+# SubTask 2 depends on SubTask 1, so they run sequentially on robot1.
+
+def cook_potato():
+    GoToObject('Potato')
+    PickupObject('Potato')
+    GoToObject('Pan')
+    PutObject('Potato', 'Pan')
+    PickupObject('Pan')
+    GoToObject('StoveBurner')
+    PutObject('Pan', 'StoveBurner')
+    SwitchOn('StoveKnob')
+    time.sleep(5)
+    SwitchOff('StoveKnob')
+    GoToObject('Potato')
+    PickupObject('Potato')
+
+def put_potato_in_fridge():
+    GoToObject('Fridge')
+    OpenObject('Fridge')
+    PutObject('Potato', 'Fridge')
+    CloseObject('Fridge')
+
+# Sequential execution on robot1 (SubTask 2 depends on SubTask 1)
+cook_potato()          # robot1
+put_potato_in_fridge() # robot1
+```
+
+**Summary**: The task is completed using the **minimum number of robots (1)**. robot2 is excluded because its mass capacity (0.02) is far below the mass of the objects involved (Potato = 0.18, Pan+Potato = 0.85). No team formation is needed since robot1 alone satisfies both the skill and mass requirements for every subtask.

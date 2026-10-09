@@ -1,0 +1,43 @@
+Going to  Knife|+00.74|+00.76|-00.19 {'x': 0.7141741514205933, 'y': 0.7575367093086243, 'z': -0.21821387112140656}
+Reached:  Knife
+PIcking:  Knife
+Picking Up  Knife|+00.74|+00.76|-00.19 {'x': 0.7141741514205933, 'y': 0.7575367093086243, 'z': -0.21821387112140656}
+Going to  Bread|-00.87|+00.93|+00.99 {'x': -0.8715707063674927, 'y': 0.9406520128250122, 'z': 0.9912015795707703}
+Reached:  Bread
+Slicing:  Bread
+Going to  Bread|-00.87|+00.93|+00.99 {'x': -0.87, 'y': 0.93, 'z': 0.99}
+Reached:  Bread|-00.87|+00.93|+00.99
+Going to  CounterTop|+00.79|+00.92|-00.11 {'x': 0.8001425266265869, 'y': 0.8812419176101685, 'z': -0.41060352325439453}
+Reached:  CounterTop
+Can't place an object if Agent isn't holding anything
+Going to  Bread|-00.87|+00.93|+00.99|Bread_0 {'x': -0.8515543341636658, 'y': 0.9407371282577515, 'z': 1.0496790409088135}
+Reached:  Bread
+PIcking:  Bread
+Picking Up  Bread|-00.87|+00.93|+00.99|Bread_0 {'x': -0.8515543341636658, 'y': 0.9407371282577515, 'z': 1.0496790409088135}
+Going to  Toaster|-00.52|+00.89|+01.08 {'x': -0.5228453874588013, 'y': 0.9743396639823914, 'z': 1.0619933605194092}
+Reached:  Toaster
+Bread_21_Slice_1 is not a valid Object Type to be placed in Toaster_b00b48a4
+Switching On:  Toaster
+Going to  Toaster|-00.52|+00.89|+01.08 {'x': -0.52, 'y': 0.89, 'z': 1.08}
+Blocked by robot2; teleporting it away from the goal
+Blocked by robot3; teleporting it away from the goal
+Reached:  Toaster|-00.52|+00.89|+01.08
+Switching Off:  Toaster
+Going to  Toaster|-00.52|+00.89|+01.08 {'x': -0.52, 'y': 0.89, 'z': 1.08}
+Reached:  Toaster|-00.52|+00.89|+01.08
+Going to  Bread|-00.87|+00.93|+00.99|Bread_0 {'x': 0.739962100982666, 'y': 1.1943464279174805, 'z': -3.282229423522949}
+Reached:  Bread
+PIcking:  Bread
+Picking Up  Bread|-00.87|+00.93|+00.99|Bread_0 {'x': 0.739962100982666, 'y': 1.1943464279174805, 'z': -3.282229423522949}
+InvalidOperationException: Agent hand has something in it already! Can't pick up anything else. trace:   at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.pickupObject (SimObjPhysics target, System.Boolean forceAction, System.Boolean manualInteract, System.Boolean markActionFinished) [0x0003c] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.PickupObject (System.String objectId, System.Boolean forceAction, System.Boolean manualInteract) [0x00009] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 
+Going to  Plate|-01.99|+00.83|-01.59 {'x': -1.9885863065719604, 'y': 0.8396828174591064, 'z': -1.5884747505187988}
+Reached:  Plate
+No valid positions to place object found
+SR:0, TC:0, GCR:0.0, Exec:0.5555555555555556, RU:0.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Toast_a_slice_of_the_breadloaf_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Toast_a_slice_of_the_breadloaf_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Toast_a_slice_of_the_breadloaf_plans_2026-10-09-09-39-35-553801/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Toast_a_slice_of_the_breadloaf_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

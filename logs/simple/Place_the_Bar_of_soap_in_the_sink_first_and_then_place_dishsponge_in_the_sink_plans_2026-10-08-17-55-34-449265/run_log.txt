@@ -1,0 +1,23 @@
+Going to  SoapBar|-02.82|+00.92|+01.78 {'x': -2.8191401958465576, 'y': 0.9321801066398621, 'z': 1.7790567874908447}
+Reached:  SoapBar
+PIcking:  SoapBar
+Picking Up  SoapBar|-02.82|+00.92|+01.78 {'x': -2.8191401958465576, 'y': 0.9321801066398621, 'z': 1.7790567874908447}
+Going to  Sink|-02.72|+00.86|+02.23 {'x': -2.648437023162842, 'y': 0.9443130493164062, 'z': 2.2319998741149902}
+Reached:  Sink
+This target object is NOT a receptacle!
+Going to  DishSponge|-02.90|+01.07|+00.78 {'x': -2.89700984954834, 'y': 1.0811833143234253, 'z': 0.783273458480835}
+Reached:  DishSponge
+PIcking:  DishSponge
+Picking Up  DishSponge|-02.90|+01.07|+00.78 {'x': -2.89700984954834, 'y': 1.0811833143234253, 'z': 0.783273458480835}
+InvalidOperationException: Agent hand has something in it already! Can't pick up anything else. trace:   at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.pickupObject (SimObjPhysics target, System.Boolean forceAction, System.Boolean manualInteract, System.Boolean markActionFinished) [0x0003c] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.PickupObject (System.String objectId, System.Boolean forceAction, System.Boolean manualInteract) [0x00009] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 
+Going to  Sink|-02.72|+00.86|+02.23 {'x': -2.648437023162842, 'y': 0.9443130493164062, 'z': 2.2319998741149902}
+Reached:  Sink
+This target object is NOT a receptacle!
+SR:0, TC:0, GCR:0.0, Exec:0.25, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Place_the_Bar_of_soap_in_the_sink_first_and_then_place_dishsponge_in_the_sink_plans_2026-10-08-17-55-34-449265/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Place_the_Bar_of_soap_in_the_sink_first_and_then_place_dishsponge_in_the_sink_plans_2026-10-08-17-55-34-449265/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Place_the_Bar_of_soap_in_the_sink_first_and_then_place_dishsponge_in_the_sink_plans_2026-10-08-17-55-34-449265/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Place_the_Bar_of_soap_in_the_sink_first_and_then_place_dishsponge_in_the_sink_plans_2026-10-08-17-55-34-449265/video_top_view.mp4

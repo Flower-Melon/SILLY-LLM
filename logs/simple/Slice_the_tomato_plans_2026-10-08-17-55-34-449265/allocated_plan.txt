@@ -1,0 +1,59 @@
+# Task Allocation: Slice the Tomato
+
+## 1. Task Decomposition
+
+**Main Task:** Slice the tomato
+
+**SubTask 1:** Slice the Tomato
+- **Skills Required:** `GoToObject`, `PickupObject`, `SliceObject`, `PutObject`
+- **Objects involved & masses:**
+  - Knife: 0.18
+  - Tomato: 0.12
+  - CounterTop: 0.0
+- **Max object mass handled:** 0.18 (Knife)
+
+There is only one subtask, so no parallelization is possible — it must be executed as a single sequential unit.
+
+## 2. Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+| robot2 | (same 13 skills) | 100 |
+| robot3 | (same 13 skills) | 100 |
+
+**Skill check:** All three robots possess every required skill (`GoToObject`, `PickupObject`, `SliceObject`, `PutObject`).
+
+**Mass check:** The heaviest object the robot must physically handle is the Knife (0.18). All robots have mass_capacity = 100 ≫ 0.18. No mass gap exists.
+
+## 3. Allocation Decision
+
+- All robots are **skill-equivalent** and **mass-equivalent** for this task.
+- Since the subtask is a single indivisible sequence (pick up knife → slice tomato → return knife), it cannot be split across robots without breaking the physical continuity of holding the knife.
+- **Minimum number of robots needed = 1.**
+
+**Assign SubTask 1 → robot1** (any of the three would work; robot1 chosen as the first available).
+
+## 4. Execution Plan
+
+```
+Sequential execution (single robot, single subtask):
+
+robot1:
+  GoToObject('Knife')
+  PickupObject('Knife')
+  GoToObject('Tomato')
+  SliceObject('Tomato')
+  GoToObject('CounterTop')
+  PutObject('Knife', 'CounterTop')
+```
+
+No teams are required, no parallelization is possible, and no dependencies exist beyond the internal ordering of the subtask itself.
+
+## 5. Summary
+
+| SubTask | Skills Required | Mass Requirement | Assigned To | Mode |
+|---------|-----------------|------------------|-------------|------|
+| Slice the Tomato | GoToObject, PickupObject, SliceObject, PutObject | ≤ 0.18 | robot1 | Sequential (single robot) |
+
+**Robots used: 1 (robot1)** — the minimum possible.

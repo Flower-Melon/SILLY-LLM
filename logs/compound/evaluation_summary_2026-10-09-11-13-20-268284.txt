@@ -1,0 +1,18 @@
+==================== logs/compound summary ====================
+Task folder                                  Status                       SR     TC    GCR   Exec     RU
+Break_the_Cellphone_and_Close_the_blinds_pla ok                        1.000  1.000  1.000  1.000  1.000
+Microwave_a_plate_containg_a_egg_and_a_tomat ok                        1.000  1.000  1.000  0.857  1.000
+Open_a_book_in_a_well_lit_room_plans_2026-10 ok                        1.000  1.000  1.000  0.500  1.000
+Open_the_Laptop_and_Turn_it_ON_plans_2026-10 ok                        0.000  1.000  1.000  1.000  0.000
+Put_plunger_in_cabinet_and_Turn_off_the_ligh ok                        0.000  0.000  0.500  0.667  1.000
+Put_the_vase_on_the_dining_table_and_open_th ok                        1.000  1.000  1.000  1.000  1.000
+Put_two_vegetables_in_the_fridge_parallely_p ok                        0.000  0.000  0.000  1.000  1.000
+Slice_apple_and_throw_it_in_the_trash_plans_ ok                        0.000  0.000  0.500  0.800  0.000
+Throw_the_Spatula_in_the_trash_plans_2026-10 ok                        0.000  0.000  0.000  0.500  1.000
+Toast_a_slice_of_the_breadloaf_plans_2026-10 ok                        0.000  0.000  0.000  0.556  0.000
+Turn_on_Sink_faucet_and_put_toilet_paper_in_ ok                        1.000  1.000  1.000  1.000  1.000
+Wash_the_fork_and_put_it_in_the_bowl_plans_2 ok                        1.000  1.000  1.000  0.667  1.000
+Wash_the_lettuce_and_place_lettuce_on_the_Co ok                        1.000  1.000  1.000  1.000  1.000
+put_mug_in_the_coffee_machine_and_switch_on_ ok                        1.000  1.000  1.000  1.000  1.000
+Average                                      14 tasks, 0 failed        0.571  0.643  0.714  0.825  0.786
+==============================================================

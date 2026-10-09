@@ -1,0 +1,61 @@
+# Task Allocation for "Fill water in the BathTub"
+
+## 1. Task Decomposition
+
+The task has a single subtask:
+
+**SubTask 1: Fill water in the BathTub**
+- **Skills Required:** `GoToObject`, `SwitchOn`, `SwitchOff`
+- **Objects involved:** `Bathtub` (mass 0.0), `Faucet` (mass 0.0)
+- **Dependencies:** None (single subtask, no parallelization possible)
+
+## 2. Robot Capability Analysis
+
+Only one robot is available:
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, **SwitchOn**, **SwitchOff**, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+
+**Skill check for SubTask 1:**
+- `GoToObject` ✅ robot1 has it
+- `SwitchOn` ✅ robot1 has it
+- `SwitchOff` ✅ robot1 has it
+
+**Mass check for SubTask 1:**
+- Objects involved (`Bathtub`, `Faucet`) have mass 0.0
+- robot1's mass capacity = 100 ≥ 0.0 ✅
+
+## 3. Allocation Decision
+
+- **No team needed:** robot1 possesses all three required skills (`GoToObject`, `SwitchOn`, `SwitchOff`) individually.
+- **No mass gap:** The objects involved have negligible mass (0.0), well within robot1's capacity of 100.
+- **No parallelization:** There is only one subtask, so it must be executed sequentially by itself.
+
+## 4. Final Allocation
+
+| SubTask | Skills Required | Assigned To | Execution Mode |
+|---------|-----------------|-------------|----------------|
+| Fill water in the BathTub | GoToObject, SwitchOn, SwitchOff | **robot1** | Sequential (single subtask) |
+
+**Minimum number of robots used: 1 (robot1)**
+
+## 5. Execution Plan
+
+```python
+def fill_bathtub():
+    # 0: SubTask 1: Fill water in the BathTub
+    # 1: Go to the Bathtub.
+    GoToObject('Bathtub')
+    # 2: Switch on the Faucet to fill the Bathtub with water.
+    SwitchOn('Faucet')
+    # 3: Wait for a while to let the Bathtub fill with water.
+    time.sleep(5)
+    # 4: Switch off the Faucet.
+    SwitchOff('Faucet')
+
+# Execute SubTask 1 using robot1
+fill_bathtub()
+```
+
+**Summary:** robot1 alone satisfies all skill and mass requirements for the single subtask. No team formation or parallelization is required, so the task is completed with the minimum of **1 robot**.

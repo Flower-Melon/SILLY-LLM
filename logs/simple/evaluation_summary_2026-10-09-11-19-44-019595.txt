@@ -1,0 +1,12 @@
+==================== logs/simple summary ====================
+Task folder                                  Status                       SR     TC    GCR   Exec     RU
+Break_a_vase_and_Turn_on_TV_plans_2026-10-08 ok                        1.000  1.000  1.000  1.000  1.000
+Chill_the_apple_and_wash_the_knife_plans_202 ok                        1.000  1.000  1.000  0.800  1.000
+Place_the_Bar_of_soap_in_the_sink_first_and_ ok                        0.000  0.000  0.000  0.250  1.000
+Put_apple_in_fridge_and_switch_off_the_light ok                        1.000  1.000  1.000  1.000  1.000
+Put_the_baseballbat_and_tennis_racket_on_the ok                        1.000  1.000  1.000  1.000  1.000
+Put_the_book_in_the_box_and_Turn_on_the_mobi ok                        1.000  1.000  1.000  1.000  1.000
+Slice_the_tomato_plans_2026-10-08-17-55-34-4 ok                        1.000  1.000  1.000  1.000  1.000
+Turn_off_floor_lamp_plans_2026-10-08-17-55-3 ok                        1.000  1.000  1.000  1.000  1.000
+Average                                      8 tasks, 0 failed         0.875  0.875  0.875  0.881  1.000
+==============================================================

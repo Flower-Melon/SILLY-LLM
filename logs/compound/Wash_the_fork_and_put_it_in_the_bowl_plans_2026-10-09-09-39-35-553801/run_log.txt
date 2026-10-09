@@ -1,0 +1,26 @@
+Going to  Fork|+00.65|+00.87|-00.07 {'x': 0.6332181692123413, 'y': 0.8825943470001221, 'z': -0.0826171413064003}
+Reached:  Fork
+PIcking:  Fork
+Picking Up  Fork|+00.65|+00.87|-00.07 {'x': 0.6332181692123413, 'y': 0.8825943470001221, 'z': -0.0826171413064003}
+Going to  Sink|+00.75|+00.88|-00.68 {'x': 0.7530224919319153, 'y': 0.8191193342208862, 'z': -0.6798887848854065}
+Reached:  Sink
+This target object is NOT a receptacle!
+Switching On:  Faucet
+Going to  Faucet|+01.03|+00.87|-00.68 {'x': 1.03, 'y': 0.87, 'z': -0.68}
+Reached:  Faucet|+01.03|+00.87|-00.68
+Switching Off:  Faucet
+Going to  Faucet|+01.03|+00.87|-00.68 {'x': 1.03, 'y': 0.87, 'z': -0.68}
+Reached:  Faucet|+01.03|+00.87|-00.68
+PIcking:  Fork
+Picking Up  Fork|+00.65|+00.87|-00.07 {'x': 0.4279733896255493, 'y': 1.2039473056793213, 'z': -0.6109480857849121}
+InvalidOperationException: Agent hand has something in it already! Can't pick up anything else. trace:   at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.pickupObject (SimObjPhysics target, System.Boolean forceAction, System.Boolean manualInteract, System.Boolean markActionFinished) [0x0003c] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.PickupObject (System.String objectId, System.Boolean forceAction, System.Boolean manualInteract) [0x00009] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 
+Going to  Bowl|-02.04|+00.83|-01.17 {'x': -2.037182092666626, 'y': 0.8855820894241333, 'z': -1.163447618484497}
+Reached:  Bowl
+SR:1, TC:1, GCR:1.0, Exec:0.6666666666666666, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Wash_the_fork_and_put_it_in_the_bowl_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Wash_the_fork_and_put_it_in_the_bowl_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Wash_the_fork_and_put_it_in_the_bowl_plans_2026-10-09-09-39-35-553801/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Wash_the_fork_and_put_it_in_the_bowl_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

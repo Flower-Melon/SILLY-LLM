@@ -1,0 +1,85 @@
+# Task Allocation Solution
+
+## Task Analysis
+
+**Task:** Open a book in a well lit room
+
+### Subtask Decomposition
+
+| Subtask | Description | Skills Required | Objects Involved | Mass |
+|---------|-------------|-----------------|------------------|------|
+| SubTask 1 | Turn on the light in the room | GoToObject, SwitchOn | LightSwitch | 0.0 |
+| SubTask 2 | Open the book | GoToObject, OpenObject | Book | 0.5 |
+
+### Dependency Analysis
+- SubTask 1 and SubTask 2 are **independent** — opening the book does not require the light to be on first, and turning on the light does not require the book to be open. They can be executed **in parallel**.
+
+---
+
+## Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, BreakObject, ThrowObject | 100 |
+| robot2 | GoToObject, OpenObject, CloseObject | 100 |
+| robot3 | GoToObject, SwitchOn, SwitchOff | 100 |
+
+**Skill coverage per subtask:**
+- **SubTask 1** requires `GoToObject` + `SwitchOn` → only **robot3** has both skills.
+- **SubTask 2** requires `GoToObject` + `OpenObject` → only **robot2** has both skills.
+
+**Mass check:** All objects involved (LightSwitch = 0.0, Book = 0.5) are far below every robot's mass capacity (100). No mass constraint is binding.
+
+**Team formation:** Not required — each subtask is fully covered by a single robot's skill set.
+
+---
+
+## Allocation
+
+| Subtask | Assigned Robot | Rationale |
+|---------|----------------|-----------|
+| SubTask 1: Turn on the light | **robot3** | Only robot with `SwitchOn` skill (plus `GoToObject`) |
+| SubTask 2: Open the book | **robot2** | Only robot with `OpenObject` skill (plus `GoToObject`) |
+
+**Minimum robots needed: 2** (robot2 and robot3). robot1 is not needed since it lacks the required skills for either subtask.
+
+**Execution mode: Parallel** — the two subtasks are independent and assigned to two different robots, so they can run simultaneously.
+
+---
+
+## Execution Code
+
+```python
+import threading
+
+def turn_on_light():
+    # SubTask 1: Turn on the light in the room (robot3)
+    GoToObject('LightSwitch')
+    SwitchOn('LightSwitch')
+
+def open_book():
+    # SubTask 2: Open the book (robot2)
+    GoToObject('Book')
+    OpenObject('Book')
+
+# SubTask 1 and SubTask 2 are independent -> run in parallel on robot3 and robot2
+task1_thread = threading.Thread(target=turn_on_light)
+task2_thread = threading.Thread(target=open_book)
+
+task1_thread.start()
+task2_thread.start()
+
+task1_thread.join()
+task2_thread.join()
+# Task "Open a book in a well lit room" is done
+```
+
+---
+
+## Summary
+
+- **Subtasks:** 2 (turn on light, open book) — independent, parallelizable.
+- **Robots used:** robot2 (opens book) and robot3 (turns on light) — the minimum set that covers all required skills.
+- **Teams:** None needed; each subtask's skill requirements are satisfied by a single robot.
+- **Mass:** All object masses (0.0 and 0.5) are well within every robot's capacity (100), so mass imposes no constraint.
+- **Execution:** Parallel, since the subtasks have no dependency and are handled by distinct robots.

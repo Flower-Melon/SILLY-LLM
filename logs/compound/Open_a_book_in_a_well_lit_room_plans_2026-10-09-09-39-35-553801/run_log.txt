@@ -1,0 +1,15 @@
+Going to  LightSwitch|-00.64|+01.15|+00.50 {'x': -0.6380000114440918, 'y': 1.149999976158142, 'z': 0.4897604286670685}
+Going to  Book|+00.34|+00.72|-02.65 {'x': 0.33750826120376587, 'y': 0.7401875853538513, 'z': -2.6503989696502686}
+Reached:  Book
+Going to  Book|+00.34|+00.72|-02.65 {'x': 0.34, 'y': 0.72, 'z': -2.65}
+Reached:  Book|+00.34|+00.72|-02.65
+Reached:  LightSwitch
+Switching On:  LightSwitch
+Going to  LightSwitch|-00.64|+01.15|+00.50 {'x': -0.64, 'y': 1.15, 'z': 0.5}
+Reached:  LightSwitch|-00.64|+01.15|+00.50
+can't toggle object on if it's already on!
+SR:1, TC:1, GCR:1.0, Exec:0.5, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Open_a_book_in_a_well_lit_room_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Open_a_book_in_a_well_lit_room_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Open_a_book_in_a_well_lit_room_plans_2026-10-09-09-39-35-553801/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Open_a_book_in_a_well_lit_room_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

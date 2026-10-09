@@ -1,0 +1,70 @@
+# TASK ALLOCATION SOLUTION
+
+## Step 1: Analyze Subtasks and Required Skills
+
+**SubTask 1: Put the BaseballBat on the Bed**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Object mass involved: BaseballBat = 0.9 (the object being picked up)
+
+**SubTask 2: Put the TennisRacket on the Bed**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Object mass involved: TennisRacket = 0.31 (the object being picked up)
+
+## Step 2: Analyze Robot Capabilities
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, **PickupObject**, **PutObject**, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+| robot2 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, **PickupObject**, **PutObject**, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+
+**Observation:** Both robots share the **same set and number of skills** (13 skills each), and both have identical mass capacity (100). This is the case where **all robots have the same skills and same mass capacity** — so either robot can perform either subtask.
+
+## Step 3: Skill & Mass Feasibility Check
+
+**SubTask 1 (BaseballBat):**
+- Required skills: GoToObject, PickupObject, PutObject → ✅ robot1 and robot2 both have all three.
+- Mass: 0.9 ≤ 100 → ✅ within capacity of either robot.
+
+**SubTask 2 (TennisRacket):**
+- Required skills: GoToObject, PickupObject, PutObject → ✅ robot1 and robot2 both have all three.
+- Mass: 0.31 ≤ 100 → ✅ within capacity of either robot.
+
+No skill gap and no mass gap → **no teams required**.
+
+## Step 4: Dependency & Parallelism Analysis
+
+- SubTask 1 and SubTask 2 are **independent** (neither depends on the other's completion).
+- They can be executed **in parallel**.
+- We have 2 robots available and 2 independent subtasks → assign one subtask per robot to run concurrently.
+
+## Step 5: Minimum Robot Allocation
+
+- **robot1** → SubTask 1: Put the BaseballBat on the Bed
+- **robot2** → SubTask 2: Put the TennisRacket on the Bed
+
+Both subtasks run in parallel. Minimum number of robots used = **2** (which is also the minimum possible since there are 2 independent subtasks that can be parallelized).
+
+## Final Allocation
+
+```python
+# SubTask 1: Put the BaseballBat on the Bed -> robot1
+# SubTask 2: Put the TennisRacket on the Bed -> robot2
+# Execution: PARALLEL (independent subtasks, distinct robots)
+
+task1_thread = threading.Thread(target=put_baseballbat_on_bed)   # robot1
+task2_thread = threading.Thread(target=put_tennisracket_on_bed)  # robot2
+
+task1_thread.start()
+task2_thread.start()
+task1_thread.join()
+task2_thread.join()
+```
+
+## Summary
+
+| SubTask | Skills Required | Mass | Assigned Robot(s) | Execution |
+|---------|----------------|------|-------------------|-----------|
+| Put BaseballBat on Bed | GoToObject, PickupObject, PutObject | 0.9 | robot1 | Parallel |
+| Put TennisRacket on Bed | GoToObject, PickupObject, PutObject | 0.31 | robot2 | Parallel |
+
+**Reasoning:** Since both robots are identical in skills and mass capacity, and both subtasks are independent with small object masses well within capacity, the optimal allocation is to assign each subtask to a separate robot and execute them in parallel — using the minimum number of robots (2) while maximizing efficiency.

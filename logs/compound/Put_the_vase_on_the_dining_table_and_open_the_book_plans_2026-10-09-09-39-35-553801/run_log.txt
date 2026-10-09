@@ -1,0 +1,16 @@
+Going to  Vase|-00.26|+00.70|+03.41 {'x': -0.2572349011898041, 'y': 0.7947009205818176, 'z': 3.414865016937256}
+Going to  Book|-01.87|+00.68|+01.17 {'x': -1.8735599517822266, 'y': 0.7102068662643433, 'z': 1.1665005683898926}
+Reached:  Book
+Going to  Book|-01.87|+00.68|+01.17 {'x': -1.87, 'y': 0.68, 'z': 1.17}
+Reached:  Book|-01.87|+00.68|+01.17
+Navigation stalled; teleporting robot1 to (-0.5, 0.9026566743850708, 4.0)
+Reached:  Vase
+PIcking:  Vase
+Picking Up  Vase|-00.26|+00.70|+03.41 {'x': -0.2572349011898041, 'y': 0.7947009205818176, 'z': 3.414865016937256}
+Going to  DiningTable|-02.27|-00.02|+01.42 {'x': -2.2688729763031006, 'y': 0.3407648801803589, 'z': 1.4228001832962036}
+Blocked by robot2; teleporting it away from the goal
+Reached:  DiningTable
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_the_vase_on_the_dining_table_and_open_the_book_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_the_vase_on_the_dining_table_and_open_the_book_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_the_vase_on_the_dining_table_and_open_the_book_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

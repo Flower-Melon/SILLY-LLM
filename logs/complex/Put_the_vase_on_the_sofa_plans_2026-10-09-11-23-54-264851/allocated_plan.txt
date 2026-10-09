@@ -1,0 +1,55 @@
+# Task Allocation Analysis: Put the Vase on the Sofa
+
+## 1. Task Decomposition
+
+**Main Task:** Put the vase on the sofa.
+
+**SubTask 1:** Put the vase on the sofa.
+- **Skills Required:** `GoToObject`, `PickupObject`, `PutObject`
+- **Objects involved:**
+  - Vase (mass = 1.0) — must be picked up
+  - Sofa (mass = 103.99) — receptacle, not picked up
+- **Mass requirement:** The robot must be able to lift the **Vase (mass = 1.0)**. The Sofa is only a placement target, so its mass is irrelevant to the robot's carrying capacity.
+
+## 2. Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity | Has Required Skills? | Can Lift Vase (1.0)? |
+|-------|--------|---------------|----------------------|----------------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, **PickupObject**, **PutObject**, DropHandObject, ThrowObject, PushObject, PullObject | 0.4 | ✅ Yes | ❌ No (0.4 < 1.0) |
+| robot2 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, **PickupObject**, **PutObject**, DropHandObject, ThrowObject, PushObject, PullObject | 0.9 | ✅ Yes | ❌ No (0.9 < 1.0) |
+
+## 3. Skill & Mass Gap Analysis
+
+- **Skill check:** Both robots possess all three required skills (`GoToObject`, `PickupObject`, `PutObject`). ✅
+- **Mass check:** The Vase has mass **1.0**. Neither robot individually has sufficient mass capacity (robot1 = 0.4, robot2 = 0.9). ❌
+
+This is a **mass gap** — no single robot can perform the subtask alone.
+
+## 4. Team Formation
+
+Per the allocation rules, when a subtask cannot be performed by a single robot due to mass capacity, form a team whose **combined mass capacity** meets the requirement.
+
+- **Team:** {robot1, robot2}
+- **Combined skills:** Union of both skill sets → includes `GoToObject`, `PickupObject`, `PutObject` ✅
+- **Combined mass capacity:** 0.4 + 0.9 = **1.3 ≥ 1.0** ✅
+
+The team of robot1 and robot2 collectively satisfies both the skill and mass requirements.
+
+## 5. Execution Order
+
+There is only **one subtask**, so no parallelization is possible. The team must execute the subtask **sequentially/cooperatively**:
+
+1. `GoToObject('Vase')` — navigate to the vase
+2. `PickupObject('Vase')` — jointly lift the vase (combined capacity 1.3 ≥ 1.0)
+3. `GoToObject('Sofa')` — navigate to the sofa
+4. `PutObject('Vase', 'Sofa')` — place the vase on the sofa
+
+## 6. Final Allocation
+
+| SubTask | Skills Required | Mass Required | Assigned To | Reason |
+|---------|-----------------|---------------|-------------|--------|
+| Put the vase on the sofa | GoToObject, PickupObject, PutObject | 1.0 (Vase) | **Team: robot1 + robot2** | Neither robot alone has mass capacity ≥ 1.0; combined capacity 1.3 ≥ 1.0 |
+
+**Minimum number of robots used: 2** (both available robots are required — this is the minimum feasible team).
+
+**Execution mode:** Sequential cooperative execution by the team (single subtask, no parallelism possible).

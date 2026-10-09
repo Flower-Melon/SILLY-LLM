@@ -1,0 +1,47 @@
+Going to  Egg|-00.15|+01.01|+03.90 {'x': -0.14779523015022278, 'y': 1.0086408853530884, 'z': 3.897223472595215}
+Reached:  Egg
+PIcking:  Egg
+Picking Up  Egg|-00.15|+01.01|+03.90 {'x': -0.14779523015022278, 'y': 1.0086408853530884, 'z': 3.897223472595215}
+Going to  Plate|-03.01|+00.90|+03.68 {'x': -3.0060009956359863, 'y': 0.916299045085907, 'z': 3.6752572059631348}
+Reached:  Plate
+Going to  Tomato|-02.30|+00.96|+03.80 {'x': -2.2962539196014404, 'y': 0.9633669853210449, 'z': 3.7923147678375244}
+Reached:  Tomato
+PIcking:  Tomato
+Picking Up  Tomato|-02.30|+00.96|+03.80 {'x': -2.2962539196014404, 'y': 0.9633669853210449, 'z': 3.7923147678375244}
+Going to  Plate|-03.01|+00.90|+03.68 {'x': -3.0060009956359863, 'y': 0.916299045085907, 'z': 3.6752572059631348}
+Reached:  Plate
+Going to  Plate|-03.01|+00.90|+03.68 {'x': -3.0060009956359863, 'y': 0.916299045085907, 'z': 3.6752572059631348}
+Reached:  Plate
+PIcking:  Plate
+Picking Up  Plate|-03.01|+00.90|+03.68 {'x': -3.0060009956359863, 'y': 0.916299045085907, 'z': 3.6752572059631348}
+Going to  Microwave|-03.48|+01.43|+02.18 {'x': -3.4807214736938477, 'y': 1.6061851978302002, 'z': 2.184417247772217}
+Reached:  Microwave
+Going to  Microwave|-03.48|+01.43|+02.18 {'x': -3.48, 'y': 1.43, 'z': 2.18}
+Reached:  Microwave|-03.48|+01.43|+02.18
+No valid positions to place object found
+Going to  Microwave|-03.48|+01.43|+02.18 {'x': -3.48, 'y': 1.43, 'z': 2.18}
+Reached:  Microwave|-03.48|+01.43|+02.18
+Switching On:  Microwave
+Going to  Microwave|-03.48|+01.43|+02.18 {'x': -3.48, 'y': 1.43, 'z': 2.18}
+Reached:  Microwave|-03.48|+01.43|+02.18
+Switching Off:  Microwave
+Going to  Microwave|-03.48|+01.43|+02.18 {'x': -3.48, 'y': 1.43, 'z': 2.18}
+Reached:  Microwave|-03.48|+01.43|+02.18
+Going to  Microwave|-03.48|+01.43|+02.18 {'x': -3.48, 'y': 1.43, 'z': 2.18}
+Reached:  Microwave|-03.48|+01.43|+02.18
+PIcking:  Plate
+Picking Up  Plate|-03.01|+00.90|+03.68 {'x': -2.6592531204223633, 'y': 1.2526360750198364, 'z': 2.334930181503296}
+InvalidOperationException: Agent hand has something in it already! Can't pick up anything else. trace:   at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.pickupObject (SimObjPhysics target, System.Boolean forceAction, System.Boolean manualInteract, System.Boolean markActionFinished) [0x0003c] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.PickupObject (System.String objectId, System.Boolean forceAction, System.Boolean manualInteract) [0x00009] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 
+Going to  Microwave|-03.48|+01.43|+02.18 {'x': -3.48, 'y': 1.43, 'z': 2.18}
+Reached:  Microwave|-03.48|+01.43|+02.18
+Going to  CounterTop|-03.38|+00.95|+03.34 {'x': -2.5739498138427734, 'y': 0.9122816920280457, 'z': 3.4951980113983154}
+Reached:  CounterTop
+SR:1, TC:1, GCR:1.0, Exec:0.8571428571428571, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Microwave_a_plate_containg_a_egg_and_a_tomato_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Microwave_a_plate_containg_a_egg_and_a_tomato_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Microwave_a_plate_containg_a_egg_and_a_tomato_plans_2026-10-09-09-39-35-553801/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Microwave_a_plate_containg_a_egg_and_a_tomato_plans_2026-10-09-09-39-35-553801/video_agent_4.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Microwave_a_plate_containg_a_egg_and_a_tomato_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

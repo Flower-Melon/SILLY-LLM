@@ -1,0 +1,28 @@
+Going to  Knife|-01.36|+00.88|+00.50 {'x': -1.3175888061523438, 'y': 0.8819946646690369, 'z': 0.5123047232627869}
+Going to  Mug|-03.38|+00.95|+03.27 {'x': -3.3806419372558594, 'y': 0.9970116019248962, 'z': 3.28635311126709}
+Reached:  Mug
+PIcking:  Mug
+Picking Up  Mug|-03.38|+00.95|+03.27 {'x': -3.3806419372558594, 'y': 0.9970116019248962, 'z': 3.28635311126709}
+Reached:  Knife
+PIcking:  Knife
+Picking Up  Knife|-01.36|+00.88|+00.50 {'x': -1.3175888061523438, 'y': 0.8819946646690369, 'z': 0.5123047232627869}
+Going to  GarbageCan|-01.19|-00.02|+03.79 {'x': -1.192556619644165, 'y': 0.29385143518447876, 'z': 3.787691593170166}
+Going to  Lettuce|-01.67|+00.96|+00.10 {'x': -1.663530707359314, 'y': 0.9659537076950073, 'z': 0.10285618901252747}
+Reached:  GarbageCan
+Going to  LightSwitch|+00.25|+01.38|+02.09 {'x': 0.23191595077514648, 'y': 1.3814234733581543, 'z': 2.0859999656677246}
+Reached:  LightSwitchBlocked by robot1; teleporting it away from the goal
+
+Switching Off:  LightSwitch
+Going to  LightSwitch|+00.25|+01.38|+02.09 {'x': 0.25, 'y': 1.38, 'z': 2.09}
+Reached:  LightSwitch|+00.25|+01.38|+02.09
+Reached:  Lettuce
+Slicing:  Lettuce
+Going to  Lettuce|-01.67|+00.96|+00.10 {'x': -1.67, 'y': 0.96, 'z': 0.1}
+Reached:  Lettuce|-01.67|+00.96|+00.10
+Going to  CounterTop|-03.38|+00.95|+03.34 {'x': -2.5739498138427734, 'y': 0.9122816920280457, 'z': 3.4951980113983154}
+Reached:  CounterTop
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Slice_the_lettuce_trash_the_mug_and_switch_off_the_light_plans_2026-10-09-11-23-54-264851/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Slice_the_lettuce_trash_the_mug_and_switch_off_the_light_plans_2026-10-09-11-23-54-264851/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Slice_the_lettuce_trash_the_mug_and_switch_off_the_light_plans_2026-10-09-11-23-54-264851/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Slice_the_lettuce_trash_the_mug_and_switch_off_the_light_plans_2026-10-09-11-23-54-264851/video_top_view.mp4

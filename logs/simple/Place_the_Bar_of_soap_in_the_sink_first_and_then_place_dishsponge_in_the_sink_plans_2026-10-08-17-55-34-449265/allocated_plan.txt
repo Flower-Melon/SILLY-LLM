@@ -1,0 +1,92 @@
+# TASK ALLOCATION SOLUTION
+
+## Task Analysis
+
+**Task Description:** Place the Bar of soap in the sink first and then place dishsponge in the sink
+
+### Subtask Decomposition
+
+**SubTask 1:** Place the Bar of soap in the sink
+- **Skills Required:** GoToObject, PickupObject, PutObject
+- **Objects involved:** SoapBar (mass = 0.11), Sink (mass = 0.0)
+- **Max mass to handle:** 0.11
+
+**SubTask 2:** Place the dishsponge in the sink
+- **Skills Required:** GoToObject, PickupObject, PutObject
+- **Objects involved:** DishSponge (mass = 0.03), Sink (mass = 0.0)
+- **Max mass to handle:** 0.03
+
+### Dependency Analysis
+
+The task explicitly states "**first** and **then**", meaning SubTask 2 depends on the completion of SubTask 1. Therefore, the subtasks **must be performed sequentially**, not in parallel.
+
+---
+
+## Robot Capability Analysis
+
+All three robots have **identical skill sets** (13 skills each) and **identical mass capacity** (100 each):
+
+| Robot | Required Skills Present? | Mass Capacity | Handles SoapBar (0.11)? | Handles DishSponge (0.03)? |
+|-------|--------------------------|---------------|--------------------------|-----------------------------|
+| robot1 | ✅ GoToObject, PickupObject, PutObject | 100 | ✅ | ✅ |
+| robot2 | ✅ GoToObject, PickupObject, PutObject | 100 | ✅ | ✅ |
+| robot3 | ✅ GoToObject, PickupObject, PutObject | 100 | ✅ | ✅ |
+
+**Key observations:**
+- All robots share the same skills and mass capacity → allocation is driven by **minimizing the number of robots used**.
+- No skill gap exists → no team formation needed.
+- No mass gap exists (0.11 and 0.03 ≪ 100) → no team formation needed.
+
+---
+
+## Allocation Decision
+
+Since the subtasks are **sequential** (SubTask 2 must wait for SubTask 1), and any single robot can perform both subtasks, the **minimum number of robots required is 1**.
+
+**Assign both subtasks to `robot1`**, executed sequentially:
+
+1. `robot1` performs SubTask 1 (place SoapBar in Sink).
+2. After SubTask 1 completes, `robot1` performs SubTask 2 (place DishSponge in Sink).
+
+Using a single robot satisfies the minimum-robot requirement and respects the sequential dependency. Robots 2 and 3 remain idle.
+
+---
+
+## Execution Code
+
+```python
+import threading
+
+def place_soap_in_sink():
+    # SubTask 1: Place the Bar of soap in the sink
+    GoToObject('SoapBar')
+    PickupObject('SoapBar')
+    GoToObject('Sink')
+    PutObject('SoapBar', 'Sink')
+
+def place_dishsponge_in_sink():
+    # SubTask 2: Place the dishsponge in the sink
+    GoToObject('DishSponge')
+    PickupObject('DishSponge')
+    GoToObject('Sink')
+    PutObject('DishSponge', 'Sink')
+
+# Sequential execution on robot1 (minimum robots = 1)
+# SubTask 1 must complete before SubTask 2 begins
+place_soap_in_sink()          # robot1
+place_dishsponge_in_sink()    # robot1 (after SubTask 1)
+```
+
+---
+
+## Summary
+
+| Subtask | Skills Required | Mass | Assigned Robot(s) | Execution |
+|---------|-----------------|------|-------------------|-----------|
+| Place SoapBar in Sink | GoToObject, PickupObject, PutObject | 0.11 | robot1 | Sequential (first) |
+| Place DishSponge in Sink | GoToObject, PickupObject, PutObject | 0.03 | robot1 | Sequential (after SubTask 1) |
+
+- **Robots used:** 1 (robot1) — the minimum possible.
+- **Teams required:** None (no skill or mass gap).
+- **Parallelism:** None possible due to the explicit "first...then" ordering constraint.
+- **Mass check:** Both objects (0.11, 0.03) are far below robot1's capacity (100). ✅

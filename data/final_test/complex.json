@@ -1,0 +1,190 @@
+[
+  {
+    "task": "Slice the lettuce, trash the mug and switch off the light",
+    "floor_plan": 15,
+    "robot list": [
+      8,
+      6,
+      5
+    ],
+    "object_states": [
+      {
+        "name": "Lettuce",
+        "contains": [],
+        "state": "SLICED"
+      },
+      {
+        "name": "GarbageCan",
+        "contains": [
+          "Mug"
+        ],
+        "state": null
+      },
+      {
+        "name": "LightSwitch",
+        "contains": [],
+        "state": "OFF"
+      }
+    ],
+    "trans": 0,
+    "max_trans": 2
+  },
+  {
+    "task": "Cook the potato and put it in the Fridge",
+    "floor_plan": 15,
+    "robot list": [
+      9,
+      10
+    ],
+    "object_states": [
+      {
+        "name": "Fridge",
+        "contains": [
+          "Potato"
+        ],
+        "state": null
+      },
+      {
+        "name": "Potato",
+        "contains": [],
+        "state": "COOKED"
+      }
+    ],
+    "trans": 0,
+    "max_trans": 1
+  },
+  {
+    "task": "Put the watch and Keychain inside the drawer",
+    "floor_plan": 201,
+    "robot list": [
+      2,
+      3,
+      5
+    ],
+    "object_states": [
+      {
+        "name": "Drawer",
+        "contains": [
+          "Watch",
+          "KeyChain"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Put the Box on the sofa and the bowl in the box",
+    "floor_plan": 201,
+    "robot list": [
+      8,
+      5
+    ],
+    "object_states": [
+      {
+        "name": "Box",
+        "contains": [
+          "Bowl"
+        ],
+        "state": null
+      },
+      {
+        "name": "Sofa",
+        "contains": [
+          "Box"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 1,
+    "max_trans": 1
+  },
+  {
+    "task": "Put the watch in the box and watering can on the coffeetable",
+    "floor_plan": 209,
+    "robot list": [
+      6,
+      7
+    ],
+    "object_states": [
+      {
+        "name": "Box",
+        "contains": [
+          "Watch"
+        ],
+        "state": null
+      },
+      {
+        "name": "CoffeeTable",
+        "contains": [
+          "WateringCan"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 0,
+    "max_trans": 1
+  },
+  {
+    "task": "Trash the book and newspaper",
+    "floor_plan": 209,
+    "robot list": [
+      8,
+      9,
+      10,
+      28
+    ],
+    "object_states": [
+      {
+        "name": "GarbageCan",
+        "contains": [
+          "Book",
+          "Newspaper"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 0,
+    "max_trans": 1
+  },
+  {
+    "task": "Put the vase on the sofa",
+    "floor_plan": 209,
+    "robot list": [
+      8,
+      28
+    ],
+    "object_states": [
+      {
+        "name": "Sofa",
+        "contains": [
+          "Vase"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 0,
+    "max_trans": 1
+  },
+  {
+    "task": "Place the laptop on the bed",
+    "floor_plan": 303,
+    "robot list": [
+      9,
+      8,
+      7
+    ],
+    "object_states": [
+      {
+        "name": "Bed",
+        "contains": [
+          "Laptop"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  }
+]

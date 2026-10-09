@@ -1,0 +1,84 @@
+# TASK ALLOCATION SOLUTION
+
+## Step 1: Analyze Subtasks, Skills, and Mass Requirements
+
+**SubTask 1: Place an Egg on the Plate**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Objects involved: Egg (mass 0.055), Plate (mass 0.62)
+- Max mass handled: 0.62 (Plate is picked up? No — only Egg is picked up; Plate is a receptacle). Actually only Egg is picked up → mass = 0.055
+
+**SubTask 2: Place a Tomato on the Plate**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Objects involved: Tomato (mass 0.12), Plate (receptacle)
+- Mass handled: 0.12
+
+**SubTask 3: Microwave the Plate**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`, `OpenObject`, `CloseObject`, `SwitchOn`, `SwitchOff`
+- Objects involved: Plate (mass 0.62), Microwave (mass 7.0, not picked up)
+- Mass handled: 0.62 (Plate is picked up)
+
+## Step 2: Analyze Robot Skills and Mass Capacity
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject | 100 |
+| robot2 | GoToObject, SwitchOn, SwitchOff | 100 |
+| robot3 | GoToObject, PickupObject, PutObject | 100 |
+| robot4 | GoToObject, SliceObject, PickupObject | 100 |
+
+All robots have mass_capacity = 100, which far exceeds any object mass (max 7.0). **Mass is not a constraint** — focus on skills alone.
+
+## Step 3: Skill Matching
+
+**SubTask 1 (Egg on Plate)** — needs `GoToObject`, `PickupObject`, `PutObject`
+- robot3 has all three ✓
+- robot4 has GoToObject, PickupObject but lacks PutObject ✗
+- **Assign to robot3**
+
+**SubTask 2 (Tomato on Plate)** — needs `GoToObject`, `PickupObject`, `PutObject`
+- robot3 has all three ✓
+- **Assign to robot3**
+
+**SubTask 3 (Microwave Plate)** — needs `GoToObject`, `PickupObject`, `PutObject`, `OpenObject`, `CloseObject`, `SwitchOn`, `SwitchOff`
+- No single robot has all 7 skills:
+  - robot1: GoToObject, OpenObject, CloseObject (3/7)
+  - robot2: GoToObject, SwitchOn, SwitchOff (3/7)
+  - robot3: GoToObject, PickupObject, PutObject (3/7)
+  - robot4: GoToObject, PickupObject, SliceObject (2/7)
+- **Skill gap → form a team**
+- Team {robot1, robot2, robot3} covers: GoToObject, OpenObject, CloseObject, SwitchOn, SwitchOff, PickupObject, PutObject = all 7 ✓
+- Team {robot1, robot2, robot4} lacks PutObject ✗
+- **Assign SubTask 3 to team {robot1, robot2, robot3}**
+
+## Step 4: Dependency & Execution Order
+
+- SubTask 1 and SubTask 2 are **independent** → can run in **parallel**
+- SubTask 3 **depends on** SubTask 1 and SubTask 2 (plate must contain egg and tomato first) → must run **sequentially after** both
+
+## Step 5: Minimum Robots & Scheduling
+
+- SubTask 1 → robot3
+- SubTask 2 → robot3
+- SubTask 3 → team {robot1, robot2, robot3}
+
+Since robot3 is needed for SubTask 1, SubTask 2, and SubTask 3, and SubTask 1/2 both require robot3, they **cannot truly run in parallel** (shared robot). Serialize them on robot3.
+
+**Minimum robots needed: 3** (robot1, robot2, robot3). robot4 is not needed.
+
+## Final Allocation
+
+```
+SubTask 1 (Egg on Plate)      → robot3          [sequential]
+SubTask 2 (Tomato on Plate)   → robot3          [sequential, after ST1]
+SubTask 3 (Microwave Plate)   → {robot1, robot2, robot3}  [after ST1 & ST2]
+```
+
+**Execution plan:**
+1. robot3: place egg on plate
+2. robot3: place tomato on plate
+3. Team {robot1, robot2, robot3}: microwave the plate
+   - robot3: GoToObject(Plate), PickupObject(Plate), GoToObject(Microwave), PutObject(Plate, Microwave), PickupObject(Plate), GoToObject(CounterTop), PutObject(Plate, CounterTop)
+   - robot1: OpenObject(Microwave), CloseObject(Microwave) (open/close around insertion and removal)
+   - robot2: SwitchOn(Microwave), SwitchOff(Microwave)
+
+**Robots used: 3 (robot1, robot2, robot3)** — the minimum required, since no single robot possesses all skills for SubTask 3, and robot3 is the only robot capable of the pickup/put subtasks.

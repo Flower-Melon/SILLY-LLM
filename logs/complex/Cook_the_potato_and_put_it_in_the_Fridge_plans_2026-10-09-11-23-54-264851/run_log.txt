@@ -1,0 +1,40 @@
+Going to  Potato|-01.80|+00.91|+00.52 {'x': -1.801037311553955, 'y': 0.9173721075057983, 'z': 0.5217834711074829}
+Reached:  Potato
+PIcking:  Potato
+Picking Up  Potato|-01.80|+00.91|+00.52 {'x': -1.801037311553955, 'y': 0.9173721075057983, 'z': 0.5217834711074829}
+Going to  Pan|-02.61|+00.90|+03.62 {'x': -2.6147637367248535, 'y': 0.9247980117797852, 'z': 3.551766872406006}
+Reached:  Pan
+PIcking:  Pan
+Picking Up  Pan|-02.61|+00.90|+03.62 {'x': -2.6147637367248535, 'y': 0.9247980117797852, 'z': 3.551766872406006}
+Going to  StoveBurner|-03.15|+00.96|+02.37 {'x': -3.148099899291992, 'y': 0.9483296871185303, 'z': 2.3742997646331787}
+Reached:  StoveBurner
+StoveBurner_0a801165 is full right now
+Switching On:  StoveKnob
+Going to  StoveKnob|-03.60|+01.11|+01.87 {'x': -3.6, 'y': 1.11, 'z': 1.87}
+Blocked by robot2; teleporting it away from the goal
+Reached:  StoveKnob|-03.60|+01.11|+01.87
+Going to  StoveKnob|-03.60|+01.11|+02.27 {'x': -3.6, 'y': 1.11, 'z': 2.27}
+Reached:  StoveKnob|-03.60|+01.11|+02.27
+Going to  StoveKnob|-03.60|+01.11|+02.02 {'x': -3.6, 'y': 1.11, 'z': 2.02}
+Reached:  StoveKnob|-03.60|+01.11|+02.02
+Going to  StoveKnob|-03.60|+01.11|+02.43 {'x': -3.6, 'y': 1.11, 'z': 2.43}
+Reached:  StoveKnob|-03.60|+01.11|+02.43
+Switching Off:  StoveKnob
+Going to  Potato|-01.80|+00.91|+00.52 {'x': -2.9352545738220215, 'y': 1.3082984685897827, 'z': 2.617518424987793}
+Reached:  Potato
+PIcking:  Potato
+Picking Up  Potato|-01.80|+00.91|+00.52 {'x': -2.9352545738220215, 'y': 1.3082984685897827, 'z': 2.617518424987793}
+InvalidOperationException: Agent hand has something in it already! Can't pick up anything else. trace:   at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.pickupObject (SimObjPhysics target, System.Boolean forceAction, System.Boolean manualInteract, System.Boolean markActionFinished) [0x0003c] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.PickupObject (System.String objectId, System.Boolean forceAction, System.Boolean manualInteract) [0x00009] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 
+Going to  Fridge|-00.44|+00.01|+04.00 {'x': -0.43213582038879395, 'y': 0.947960376739502, 'z': 3.9271628856658936}
+Reached:  Fridge
+Going to  Fridge|-00.44|+00.01|+04.00 {'x': -0.44, 'y': 0.01, 'z': 4.0}
+Reached:  Fridge|-00.44|+00.01|+04.00
+Going to  Fridge|-00.44|+00.01|+04.00 {'x': -0.44, 'y': 0.01, 'z': 4.0}
+Reached:  Fridge|-00.44|+00.01|+04.00
+SR:0, TC:0, GCR:0.5, Exec:0.875, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Cook_the_potato_and_put_it_in_the_Fridge_plans_2026-10-09-11-23-54-264851/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Cook_the_potato_and_put_it_in_the_Fridge_plans_2026-10-09-11-23-54-264851/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Cook_the_potato_and_put_it_in_the_Fridge_plans_2026-10-09-11-23-54-264851/video_top_view.mp4

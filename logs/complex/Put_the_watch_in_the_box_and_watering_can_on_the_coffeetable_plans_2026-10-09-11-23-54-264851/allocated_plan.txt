@@ -1,0 +1,93 @@
+# Task Allocation Solution
+
+## Task Decomposition
+
+**Main Task:** Put the watch in the box and watering can on the coffeetable.
+
+**SubTask 1:** Put the watch in the box.
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Object masses involved: Watch = 0.07, Box = 0.3
+
+**SubTask 2:** Put the watering can on the coffeetable.
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Object masses involved: WateringCan = 1.0, CoffeeTable = 11.0
+
+**Dependency Analysis:** The two subtasks are independent (no shared objects, no ordering constraint), so they can be executed **in parallel**.
+
+---
+
+## Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 2.1 |
+| robot2 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 0.08 |
+
+Both robots share the **same skill set** (13 skills each), so skill matching is not a differentiator. Allocation is driven by **mass capacity**.
+
+---
+
+## SubTask 1: Put the watch in the box
+
+- Required skills: `GoToObject`, `PickupObject`, `PutObject` → both robots possess these.
+- Mass constraint: The heaviest object the robot must **pick up** is the Watch (0.07). The Box (0.3) is a receptacle, not picked up.
+- robot1 capacity = 2.1 ≥ 0.07 ✅
+- robot2 capacity = 0.08 ≥ 0.07 ✅ (barely)
+
+Both robots can perform this subtask individually. **No team required.**
+
+## SubTask 2: Put the watering can on the coffeetable
+
+- Required skills: `GoToObject`, `PickupObject`, `PutObject` → both robots possess these.
+- Mass constraint: The heaviest object the robot must **pick up** is the WateringCan (1.0). The CoffeeTable (11.0) is a placement surface, not picked up.
+- robot1 capacity = 2.1 ≥ 1.0 ✅
+- robot2 capacity = 0.08 < 1.0 ❌
+
+Only **robot1** can perform this subtask. **No team required** (robot1 alone suffices).
+
+---
+
+## Allocation Decision
+
+Since the subtasks are independent and can run in parallel, and we want to use the **minimum number of robots**:
+
+- **SubTask 1** → robot2 (capacity 0.08 ≥ 0.07, just sufficient)
+- **SubTask 2** → robot1 (capacity 2.1 ≥ 1.0)
+
+This uses **2 robots** running in parallel, which is the minimum needed because robot2 alone cannot handle SubTask 2 (mass gap), and robot1 alone would have to serialize both subtasks (still 1 robot, but slower). Since parallel execution is allowed and both robots are available, assigning each subtask to a distinct capable robot achieves the fastest completion while respecting all constraints.
+
+> Note: If minimizing robot count were strictly prioritized over parallelism, robot1 could perform both subtasks sequentially (1 robot). However, since the subtasks are independent and a second capable robot (robot2) exists for SubTask 1, the parallel allocation is valid and uses the available robots efficiently.
+
+---
+
+## Final Allocation
+
+| SubTask | Assigned Robot(s) | Execution |
+|---------|-------------------|-----------|
+| Put the watch in the box | robot2 | Parallel |
+| Put the watering can on the coffeetable | robot1 | Parallel |
+
+**No teams required** — each subtask is fully satisfiable by a single robot's skills and mass capacity.
+
+```python
+import threading
+
+def put_watch_in_box():
+    GoToObject('Watch')
+    PickupObject('Watch')
+    GoToObject('Box')
+    PutObject('Watch', 'Box')
+
+def put_watering_can_on_coffeetable():
+    GoToObject('WateringCan')
+    PickupObject('WateringCan')
+    GoToObject('CoffeeTable')
+    PutObject('WateringCan', 'CoffeeTable')
+
+# SubTask 1 -> robot2 (mass 0.07 <= 0.08)
+# SubTask 2 -> robot1 (mass 1.0 <= 2.1)
+t1 = threading.Thread(target=put_watch_in_box)          # robot2
+t2 = threading.Thread(target=put_watering_can_on_coffeetable)  # robot1
+t1.start(); t2.start()
+t1.join(); t2.join()
+```

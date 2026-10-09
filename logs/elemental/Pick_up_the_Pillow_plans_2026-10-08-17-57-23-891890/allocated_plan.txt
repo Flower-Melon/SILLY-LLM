@@ -1,0 +1,44 @@
+# Task Allocation: Pick up the Pillow
+
+## 1. Subtask Analysis
+
+**SubTask 1: Pick up the Pillow**
+- **Skills Required:** `GoToObject`, `PickupObject`
+- **Object involved:** Pillow (mass = 0.699999988079071 ≈ 0.7)
+- **Dependency:** Single subtask — no parallelization or sequencing needed.
+
+## 2. Robot Capability Check
+
+| Robot | Has `GoToObject` + `PickupObject`? | Mass Capacity | Can handle Pillow (0.7)? |
+|-------|-----------------------------------|---------------|--------------------------|
+| robot1 | ✅ Yes | 0.4 | ❌ No (0.4 < 0.7) |
+| robot2 | ✅ Yes | 0.08 | ❌ No (0.08 < 0.7) |
+| robot3 | ✅ Yes | 1.0 | ✅ Yes (1.0 ≥ 0.7) |
+| robot4 | ✅ Yes | 0.02 | ❌ No (0.02 < 0.7) |
+
+## 3. Skill vs. Mass Reasoning
+
+All four robots share the **same skill set** (13 skills each), so the skill requirement is satisfied by every robot. The differentiator is **mass capacity**.
+
+- The Pillow's mass (0.7) exceeds the capacity of robot1 (0.4), robot2 (0.08), and robot4 (0.02).
+- Only **robot3** has sufficient mass capacity (1.0 ≥ 0.7).
+
+**Team formation check:** Could a team of smaller robots collectively lift the Pillow? No — mass capacity for a single-object pickup is not additive in a way that helps here, because only one robot actually grasps and carries the object. The robot performing `PickupObject` must individually have capacity ≥ object mass. Since robot3 alone satisfies both skill and mass requirements, **no team is needed**.
+
+## 4. Allocation Decision
+
+- **SubTask 1 (Pick up the Pillow)** → assigned to **robot3** (only robot meeting both skill and mass requirements).
+- **Execution mode:** Sequential (single subtask, no parallelism possible).
+- **Minimum robots used:** **1** (robot3).
+
+## 5. Final Allocation
+
+```
+SubTask 1: Pick up the Pillow
+  Skills: GoToObject, PickupObject
+  Object mass: 0.7
+  Assigned to: robot3 (mass_capacity = 1.0)
+  Execution: Sequential (only subtask)
+```
+
+**Summary:** The task is performed by the minimum number of robots — just **robot3**. Although all robots possess the required skills, only robot3 has the mass capacity to lift the Pillow (0.7), so it is the sole valid assignee. No team formation is required.

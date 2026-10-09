@@ -1,0 +1,68 @@
+# TASK ALLOCATION
+
+## Subtask Analysis
+
+**SubTask 1: Put the Mug in the CoffeeMachine**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Object mass involved: Mug = 1.0
+
+**SubTask 2: Switch on the CoffeeMachine**
+- Skills Required: `GoToObject`, `SwitchOn`
+- Object mass involved: CoffeeMachine = 5.0 (not picked up, only interacted with)
+
+**Dependency:** SubTask 2 depends on SubTask 1 (mug must be placed before switching on). Execute sequentially.
+
+## Robot Skill/Mass Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, PickupObject, PutObject | 100 |
+| robot2 | GoToObject, BreakObject, ThrowObject | 100 |
+| robot3 | GoToObject, SwitchOn, SwitchOff | 100 |
+
+## Allocation
+
+**SubTask 1 (Put Mug in CoffeeMachine):**
+- Requires `GoToObject`, `PickupObject`, `PutObject`.
+- Only **robot1** possesses all three skills.
+- Mug mass = 1.0 ≤ robot1's capacity (100). ✓
+- **Assigned to robot1.**
+
+**SubTask 2 (Switch on CoffeeMachine):**
+- Requires `GoToObject`, `SwitchOn`.
+- Only **robot3** possesses both skills.
+- CoffeeMachine is not lifted (only switched on), so mass is not a constraint here; robot3's capacity (100) is more than sufficient regardless. ✓
+- **Assigned to robot3.**
+
+## Execution Order
+
+Since SubTask 2 depends on SubTask 1, they must run **sequentially**: robot1 performs SubTask 1 first, then robot3 performs SubTask 2.
+
+No teams are required — each subtask is fully covered by a single robot's skill set and mass capacity.
+
+## Final Allocation
+
+| Subtask | Robot | Skills Used | Mass Check |
+|---------|-------|-------------|------------|
+| Put Mug in CoffeeMachine | robot1 | GoToObject, PickupObject, PutObject | 1.0 ≤ 100 ✓ |
+| Switch on CoffeeMachine | robot3 | GoToObject, SwitchOn | N/A (no lift) ✓ |
+
+**Minimum robots used: 2** (robot1 and robot3). robot2 is not needed since it lacks the required skills for either subtask.
+
+```python
+import threading
+
+def put_mug_in_coffee_machine():
+    GoToObject('Mug')
+    PickupObject('Mug')
+    GoToObject('CoffeeMachine')
+    PutObject('Mug', 'CoffeeMachine')
+
+def switch_on_coffee_machine():
+    GoToObject('CoffeeMachine')
+    SwitchOn('CoffeeMachine')
+
+# Sequential execution due to dependency
+put_mug_in_coffee_machine()   # robot1
+switch_on_coffee_machine()    # robot3
+```

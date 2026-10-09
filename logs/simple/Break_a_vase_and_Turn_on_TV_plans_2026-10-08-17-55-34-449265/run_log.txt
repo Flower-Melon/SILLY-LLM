@@ -1,0 +1,14 @@
+Going to  Vase|-02.61|+00.58|-02.94 {'x': -2.6082146167755127, 'y': 0.6142457723617554, 'z': -2.940580368041992}
+Going to  Television|-00.61|+01.67|-02.60 {'x': -0.6414110660552979, 'y': 1.6740000247955322, 'z': -2.6029999256134033}
+Reached:  Vase
+Going to  Vase|-04.48|+00.70|-05.08 {'x': -4.48, 'y': 0.7, 'z': -5.08}
+Reached:  Television
+Switching On:  Television
+Going to  Television|-00.61|+01.67|-02.60 {'x': -0.61, 'y': 1.67, 'z': -2.6}
+Reached:  Television|-00.61|+01.67|-02.60
+Reached:  Vase|-04.48|+00.70|-05.08
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Break_a_vase_and_Turn_on_TV_plans_2026-10-08-17-55-34-449265/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Break_a_vase_and_Turn_on_TV_plans_2026-10-08-17-55-34-449265/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Break_a_vase_and_Turn_on_TV_plans_2026-10-08-17-55-34-449265/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Break_a_vase_and_Turn_on_TV_plans_2026-10-08-17-55-34-449265/video_top_view.mp4

@@ -1,0 +1,9 @@
+Going to  FloorLamp|-04.82|+00.00|-05.12 {'x': -4.821235179901123, 'y': 0.9498249888420105, 'z': -5.118630409240723}
+Reached:  FloorLamp
+Switching Off:  FloorLamp
+Going to  FloorLamp|-04.82|+00.00|-05.12 {'x': -4.82, 'y': 0.0, 'z': -5.12}
+Reached:  FloorLamp|-04.82|+00.00|-05.12
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Turn_off_floor_lamp_plans_2026-10-08-17-55-34-449265/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Turn_off_floor_lamp_plans_2026-10-08-17-55-34-449265/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Turn_off_floor_lamp_plans_2026-10-08-17-55-34-449265/video_top_view.mp4

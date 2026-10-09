@@ -1,0 +1,8 @@
+Going to  LightSwitch|+00.25|+01.38|+02.09 {'x': 0.23191595077514648, 'y': 1.3814234733581543, 'z': 2.0859999656677246}
+Reached:  LightSwitch
+Switching Off:  LightSwitch
+Going to  LightSwitch|+00.25|+01.38|+02.09 {'x': 0.25, 'y': 1.38, 'z': 2.09}
+Reached:  LightSwitch|+00.25|+01.38|+02.09
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Make_the_kitchen_dark_plans_2026-10-08-17-57-23-891890/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Make_the_kitchen_dark_plans_2026-10-08-17-57-23-891890/video_top_view.mp4

@@ -1,0 +1,9 @@
+Going to  Mug|+00.79|+00.66|+00.55 {'x': 0.773760199546814, 'y': 0.7078973650932312, 'z': 0.5487097501754761}
+Reached:  Mug
+PIcking:  Mug
+Picking Up  Mug|+00.79|+00.66|+00.55 {'x': 0.773760199546814, 'y': 0.7078973650932312, 'z': 0.5487097501754761}
+Going to  CoffeeMachine|+00.87|+00.87|-01.26 {'x': 0.8090990781784058, 'y': 1.0743156671524048, 'z': -1.2551792860031128}
+Reached:  CoffeeMachine
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Put_mug_in_coffee_machine_plans_2026-10-08-17-57-23-891890/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Put_mug_in_coffee_machine_plans_2026-10-08-17-57-23-891890/video_top_view.mp4

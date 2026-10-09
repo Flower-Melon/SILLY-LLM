@@ -1,0 +1,54 @@
+# Task Allocation: Turn on the Laptop
+
+## 1. Task Decomposition
+
+**Main Task:** Turn on the laptop
+
+**SubTask 1:** Turn on the laptop
+- **Skills Required:** `GoToObject`, `SwitchOn`
+- **Objects Involved:** Laptop (mass = 2.3)
+- **Dependencies:** None (single subtask, no parallelization possible)
+
+## 2. Robot Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, **SwitchOn**, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+
+## 3. Skill & Mass Matching
+
+**Skill check for SubTask 1 (`GoToObject`, `SwitchOn`):**
+- robot1 possesses both `GoToObject` ✅ and `SwitchOn` ✅
+- No skill gap — a single robot suffices.
+
+**Mass check for SubTask 1 (Laptop, mass = 2.3):**
+- robot1 mass_capacity = 100 ≥ 2.3 ✅
+- No mass gap — no team needed.
+
+## 4. Allocation Decision
+
+- Only **one robot** is available and it satisfies all skill and mass requirements.
+- The task consists of a single subtask, so there is nothing to parallelize.
+- No team formation is required (no skill gap, no mass gap).
+
+## 5. Final Allocation
+
+| SubTask | Assigned Robot | Execution Mode |
+|---------|----------------|----------------|
+| Turn on the laptop | **robot1** | Sequential (single subtask) |
+
+**Minimum number of robots used: 1 (robot1)**
+
+```python
+def turn_on_laptop():
+    # 0: SubTask 1: Turn on the laptop
+    # 1: Go to the Laptop.
+    GoToObject('Laptop')
+    # 2: Switch on the Laptop.
+    SwitchOn('Laptop')
+
+# Execute SubTask 1 using robot1
+turn_on_laptop()
+```
+
+**Summary:** robot1 alone possesses the required skills (`GoToObject`, `SwitchOn`) and has ample mass capacity (100 ≥ 2.3) to handle the Laptop. Since there is only one subtask with no dependencies, it is executed sequentially by robot1 — the minimum number of robots necessary.

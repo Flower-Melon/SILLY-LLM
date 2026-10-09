@@ -1,0 +1,66 @@
+# Task Allocation for "Throw the Spatula in the trash"
+
+## 1. Task Decomposition
+
+**Main Task:** Throw the Spatula in the trash
+
+**SubTask 1:** Throw the Spatula in the trash
+- **Skills Required:** `GoToObject`, `PickupObject`, `ThrowObject`
+- **Objects involved:** Spatula (mass = 0.065), GarbageCan (mass = 0.7)
+- **Dependency:** Single subtask — no parallelization possible
+
+## 2. Robot Skill & Mass Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, BreakObject, ThrowObject | 100 |
+| robot2 | GoToObject, PickupObject, PutObject | 100 |
+
+**Required skills:** `GoToObject`, `PickupObject`, `ThrowObject`
+
+- **robot1** has `GoToObject` ✅, `ThrowObject` ✅, but **lacks** `PickupObject` ❌
+- **robot2** has `GoToObject` ✅, `PickupObject` ✅, but **lacks** `ThrowObject` ❌
+
+**Conclusion:** No single robot possesses all three required skills → **skill gap** → a **team** must be formed.
+
+## 3. Team Formation
+
+The combined skills of **robot1 + robot2**:
+- `GoToObject` (both)
+- `PickupObject` (robot2)
+- `ThrowObject` (robot1)
+
+✅ All required skills are covered by the team.
+
+**Mass check:** The heaviest object handled is the Spatula (0.065) / GarbageCan (0.7). Both robots have mass_capacity = 100, so mass is not a constraint. The team's combined capacity (200) far exceeds the requirement.
+
+## 4. Execution Plan
+
+Since there is only one subtask, no parallelization is possible. The team must execute the subtask **sequentially** because the skills are split across two robots (the object must be picked up by robot2, then thrown by robot1 — or the robots coordinate handoff).
+
+**Sequential execution within the team:**
+1. **robot2** performs `GoToObject('Spatula')` → `PickupObject('Spatula')`
+2. Handoff / **robot1** performs `GoToObject('GarbageCan')` → `ThrowObject('Spatula', 'GarbageCan')`
+
+## 5. Final Allocation
+
+| SubTask | Assigned To | Skills Used | Execution Mode |
+|---------|-------------|-------------|----------------|
+| Throw the Spatula in the trash | **Team: robot1 + robot2** | robot2: GoToObject, PickupObject; robot1: GoToObject, ThrowObject | Sequential (single subtask, team handoff) |
+
+**Minimum robots used: 2** (required, since no single robot has all skills).
+
+```python
+def throw_spatula_in_trash():
+    # SubTask 1: Throw the Spatula in the trash
+    # --- robot2: GoToObject + PickupObject ---
+    GoToObject('Spatula')       # robot2
+    PickupObject('Spatula')     # robot2
+    # --- robot1: GoToObject + ThrowObject ---
+    GoToObject('GarbageCan')    # robot1
+    ThrowObject('Spatula', 'GarbageCan')  # robot1
+
+throw_spatula_in_trash()
+```
+
+**Summary:** The task requires a **team of robot1 and robot2** because the required skill set (`GoToObject`, `PickupObject`, `ThrowObject`) is not held by any single robot. Mass is not a limiting factor (both capacities = 100 ≫ 0.7). Execution is sequential since there is only one subtask and the team must coordinate the pick-up (robot2) and throw (robot1) actions.

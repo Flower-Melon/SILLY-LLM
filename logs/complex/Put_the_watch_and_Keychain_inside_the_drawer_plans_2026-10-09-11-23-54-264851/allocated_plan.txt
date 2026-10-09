@@ -1,0 +1,68 @@
+# TASK ALLOCATION SOLUTION
+
+## Step 1: Analyze Subtasks and Required Skills
+
+**SubTask 1: Put the Watch inside the Drawer**
+- Skills Required: `GoToObject`, `PickupObject`, `OpenObject`, `PutObject`, `CloseObject`
+- Object mass involved: Watch = 0.07
+
+**SubTask 2: Put the KeyChain inside the Drawer**
+- Skills Required: `GoToObject`, `PickupObject`, `OpenObject`, `PutObject`, `CloseObject`
+- Object mass involved: KeyChain = 0.075
+
+## Step 2: Analyze Robot Capabilities
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+| robot2 | Same 13 skills as robot1 | 100 |
+| robot3 | Same 13 skills as robot1 | 1.0 |
+
+**Observation:** All three robots share the **same set and number of skills** (13 skills each). Therefore, skill-wise, any robot can perform either subtask. The differentiator is **mass capacity**.
+
+## Step 3: Check Mass Requirements
+
+- Watch mass = 0.07 → requires mass_capacity ≥ 0.07
+- KeyChain mass = 0.075 → requires mass_capacity ≥ 0.075
+
+All three robots (capacity 100, 100, 1.0) satisfy these mass requirements individually. **No team is needed.**
+
+## Step 4: Determine Execution Order
+
+The two subtasks are **independent** (putting the Watch in the Drawer does not depend on putting the KeyChain in the Drawer, and vice versa). They can be **parallelized**.
+
+However, both subtasks involve the **same shared object: the Drawer** (both need to Open/Close it). To avoid conflicts on the shared Drawer resource, we should serialize the Drawer access. Since the subtasks are otherwise independent, we can still assign them to **two different robots** and serialize only the Drawer interaction — but the simplest safe approach given the shared resource is to run them **sequentially** on separate robots, or run them in parallel with careful ordering.
+
+Given the task allocation rules emphasize using the **minimum number of robots**, and both subtasks can be done by a single robot, the minimum is **1 robot**. But since the subtasks are parallelizable and we have multiple capable robots, we can use **2 robots** to run them in parallel (each robot handles its own Drawer open/close, which is acceptable since the Drawer is a receptacle that can be opened/closed repeatedly).
+
+## Step 5: Allocation Decision
+
+- **SubTask 1 (Put Watch in Drawer)** → **robot1** (has all skills, mass capacity 100 ≥ 0.07)
+- **SubTask 2 (Put KeyChain in Drawer)** → **robot2** (has all skills, mass capacity 100 ≥ 0.075)
+
+**Execution:** Parallel (independent subtasks, different robots, no shared robot conflict).
+
+**Minimum robots used: 2** (could be 1 if serialized, but parallel execution with 2 robots is valid and faster; robot3 is not needed since its low mass capacity is unnecessary here).
+
+## Final Allocation
+
+```python
+# SubTask 1: Put the Watch inside the Drawer -> robot1
+# SubTask 2: Put the KeyChain inside the Drawer -> robot2
+# Execution: PARALLEL (independent subtasks, no shared robot)
+
+task1_thread = threading.Thread(target=put_watch_in_drawer)   # robot1
+task2_thread = threading.Thread(target=put_keychain_in_drawer) # robot2
+
+task1_thread.start()
+task2_thread.start()
+task1_thread.join()
+task2_thread.join()
+```
+
+**Summary:**
+- **robot1** performs "Put the Watch inside the Drawer"
+- **robot2** performs "Put the KeyChain inside the Drawer"
+- Both run **in parallel** since the subtasks are independent and each robot has the full skill set and sufficient mass capacity.
+- **robot3 is not used** (its mass capacity of 1.0 is sufficient but unnecessary; using the minimum number of robots needed for parallel execution = 2).
+- **No teams required** — each subtask is fully satisfiable by a single robot.

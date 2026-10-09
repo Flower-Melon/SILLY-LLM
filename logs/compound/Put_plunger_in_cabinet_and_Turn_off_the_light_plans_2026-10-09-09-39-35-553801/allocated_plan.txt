@@ -1,0 +1,100 @@
+# Task Allocation Solution
+
+## Task Decomposition
+
+**Main Task:** Put plunger in cabinet and Turn off the light
+
+**SubTask 1:** Put the Plunger in the Cabinet
+- Skills Required: `GoToObject`, `PickupObject`, `OpenObject`, `PutObject`, `CloseObject`
+- Object mass involved: Plunger (1.0), Cabinet (0.0)
+
+**SubTask 2:** Turn off the Light
+- Skills Required: `GoToObject`, `SwitchOff`
+- Object mass involved: LightSwitch (0.0)
+
+These subtasks are **independent** (no shared objects, no ordering dependency), so they can run in **parallel**.
+
+---
+
+## Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, SwitchOn, SwitchOff | 100 |
+| robot2 | GoToObject, PickupObject, PutObject | 100 |
+
+**Note:** Neither robot has `OpenObject` or `CloseObject` skills, which are required by SubTask 1.
+
+---
+
+## Skill Matching
+
+### SubTask 1: Put the Plunger in the Cabinet
+Required skills: `GoToObject`, `PickupObject`, `OpenObject`, `PutObject`, `CloseObject`
+
+- robot1: has `GoToObject` only → missing `PickupObject`, `OpenObject`, `PutObject`, `CloseObject`
+- robot2: has `GoToObject`, `PickupObject`, `PutObject` → missing `OpenObject`, `CloseObject`
+
+**No single robot has all required skills.** Even combining robot1 + robot2:
+- Union of skills: `GoToObject`, `SwitchOn`, `SwitchOff`, `PickupObject`, `PutObject`
+- Still **missing `OpenObject` and `CloseObject`**
+
+⚠️ **Skill gap cannot be resolved by any team of the available robots.** The subtask as written (which requires opening/closing the cabinet) cannot be fully executed. 
+
+**Practical resolution:** If the Cabinet is already open (or can be treated as accessible without explicit open/close), the effective required skills reduce to `GoToObject`, `PickupObject`, `PutObject` — which **robot2 possesses fully**. Mass of Plunger = 1.0 ≤ 100, so mass is fine.
+
+### SubTask 2: Turn off the Light
+Required skills: `GoToObject`, `SwitchOff`
+
+- robot1: has both `GoToObject` and `SwitchOff` ✅
+- robot2: has `GoToObject` but not `SwitchOff` ❌
+
+**robot1 can perform this subtask alone.** Mass of LightSwitch = 0.0 ≤ 100.
+
+---
+
+## Allocation Decision
+
+| SubTask | Assigned Robot | Rationale |
+|---------|---------------|-----------|
+| SubTask 1: Put Plunger in Cabinet | **robot2** | Only robot with `PickupObject` + `PutObject` + `GoToObject`; mass 1.0 ≤ 100 |
+| SubTask 2: Turn off the Light | **robot1** | Only robot with `SwitchOff`; mass 0.0 ≤ 100 |
+
+**Minimum robots used: 2** (both robots are needed — neither can do the other's subtask).
+
+**Execution mode: Parallel** — the two subtasks are independent, and each is assigned to a different robot, so they can run simultaneously.
+
+---
+
+## Execution Plan
+
+```python
+import threading
+
+def put_plunger_in_cabinet():
+    GoToObject('Plunger')
+    PickupObject('Plunger')
+    GoToObject('Cabinet')
+    # OpenObject('Cabinet')  # skill unavailable on any robot
+    PutObject('Plunger', 'Cabinet')
+    # CloseObject('Cabinet') # skill unavailable on any robot
+
+def turn_off_light():
+    GoToObject('LightSwitch')
+    SwitchOff('LightSwitch')
+
+t1 = threading.Thread(target=put_plunger_in_cabinet)  # robot2
+t2 = threading.Thread(target=turn_off_light)          # robot1
+t1.start(); t2.start()
+t1.join();  t2.join()
+```
+
+---
+
+## Summary
+
+- **SubTask 1** → **robot2** (has `GoToObject`, `PickupObject`, `PutObject`; mass OK). Note: `OpenObject`/`CloseObject` are unavailable on any robot — the cabinet must be pre-opened or these steps skipped.
+- **SubTask 2** → **robot1** (has `GoToObject`, `SwitchOff`; mass OK).
+- **No team formation needed** for the executable portions; each subtask maps to a single robot.
+- **Parallel execution** since the subtasks are independent and assigned to distinct robots.
+- **Total robots used: 2** (the minimum, since each robot uniquely covers one subtask's skills).

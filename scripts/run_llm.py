@@ -1,4 +1,4 @@
-"""Generate SMART-LLM plans with DeepSeek V4.1 Flash."""
+"""Generate SMART-LLM plans with DeepSeek V4.1 Flash for one benchmark level."""
 
 import argparse
 import copy
@@ -123,9 +123,13 @@ def generate_plan(session, task, available, objects, examples):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--floor-plan", type=int, default=6, help="AI2-THOR scene number (default: 6).")
+    parser.add_argument("--level", choices=["elemental", "simple", "compound", "complex"],
+                        help="Benchmark level under data/final_test (required unless --check-api).")
     parser.add_argument("--check-api", action="store_true", help="Check DeepSeek without starting AI2-THOR.")
     args = parser.parse_args(argv)
+
+    if not args.check_api and not args.level:
+        parser.error("--level is required unless --check-api is used.")
 
     with create_session() as session:
         print(f"DeepSeek model: {MODEL}")
@@ -135,9 +139,9 @@ def main(argv=None):
             print(f"API check succeeded: {answer}")
             return
 
-        tasks = json.loads((ROOT / "data/final_test" / f"FloorPlan{args.floor_plan}.json")
+        tasks = json.loads((ROOT / "data/final_test" / f"{args.level}.json")
                            .read_text(encoding="utf-8"))
-        objects = get_ai2_thor_objects(args.floor_plan)
+        objects_cache = {}
         prompt_dir = ROOT / "data/pythonic_plans"
         examples = {
             "decompose": (prompt_dir / "train_task_decompose.py").read_text(encoding="utf-8"),
@@ -146,17 +150,22 @@ def main(argv=None):
         }
         stamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
         for index, task in enumerate(tasks, 1):
-            print(f"[{index}/{len(tasks)}] {task['task']}")
+            print(f"[{index}/{len(tasks)}] FloorPlan{task['floor_plan']}: {task['task']}")
+            objects = objects_cache.get(task["floor_plan"])
+            if objects is None:
+                objects = get_ai2_thor_objects(task["floor_plan"])
+                objects_cache[task["floor_plan"]] = objects
             available = task_robots(task["robot list"])
             decomposition, allocation, code = generate_plan(session, task["task"], available, objects, examples)
             task_name = re.sub(r"[^\w-]+", "_", task["task"]).strip("_")
-            folder = ROOT / "logs" / f"{task_name}_plans_{stamp}"
+            folder = ROOT / "logs" / args.level / f"{task_name}_plans_{stamp}"
             folder.mkdir(parents=True)
             (folder / "decomposed_plan.py").write_text(decomposition + "\n", encoding="utf-8")
             (folder / "allocated_plan.txt").write_text(allocation + "\n", encoding="utf-8")
             (folder / "code_plan.py").write_text(code + "\n", encoding="utf-8")
-            metadata = {"task": task["task"], "model": MODEL, "floor_plan": args.floor_plan,
-                        "objects": objects, "robots": available, "ground_truth": task["object_states"],
+            metadata = {"task": task["task"], "model": MODEL, "level": args.level,
+                        "floor_plan": task["floor_plan"], "objects": objects, "robots": available,
+                        "ground_truth": task["object_states"],
                         "trans": task["trans"], "max_trans": task["max_trans"]}
             (folder / "task.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n",
                                             encoding="utf-8")

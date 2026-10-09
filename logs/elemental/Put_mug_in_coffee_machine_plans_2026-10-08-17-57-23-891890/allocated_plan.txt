@@ -1,0 +1,51 @@
+# Task Allocation for "Put mug in coffee machine"
+
+## 1. Subtask Analysis
+
+**SubTask 1: Put the Mug in the CoffeeMachine**
+- **Skills Required:** `GoToObject`, `PickupObject`, `PutObject`
+- **Objects involved:**
+  - Mug → mass = 1.0
+  - CoffeeMachine → mass = 5.0 (receptacle, not carried)
+- **Mass to be handled (carried object):** Mug = 1.0
+
+## 2. Robot Capability Check
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, **PickupObject**, **PutObject**, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+
+**Skill check:** robot1 possesses all three required skills (`GoToObject`, `PickupObject`, `PutObject`). ✅
+
+**Mass check:** Mug mass = 1.0 ≤ robot1 mass_capacity = 100. ✅
+
+## 3. Team Requirement
+
+- No skill gap → single robot suffices.
+- No mass gap → single robot suffices.
+- **No team needed.**
+
+## 4. Parallelism / Sequencing
+
+- There is only **one subtask**, so no parallelization is possible.
+- The subtask is internally sequential (GoTo → Pickup → GoTo → Put), but this is handled by the single robot executing the code in order.
+
+## 5. Allocation Decision
+
+| Subtask | Assigned To | Reason |
+|---------|-------------|--------|
+| Put the Mug in the CoffeeMachine | **robot1** | Only robot available; possesses all required skills and mass capacity (100) far exceeds Mug mass (1.0) |
+
+## 6. Execution
+
+```python
+# robot1 executes:
+GoToObject('Mug')
+PickupObject('Mug')
+GoToObject('CoffeeMachine')
+PutObject('Mug', 'CoffeeMachine')
+```
+
+**Minimum number of robots used: 1 (robot1)**
+
+Since only one robot is available and it fully satisfies both the skill and mass requirements, the entire task is allocated to robot1 with no team formation and no parallel execution needed.

@@ -1,0 +1,88 @@
+# Task Allocation Solution
+
+## Task Analysis
+
+**Task Description:** Break the Cellphone and Close the blinds
+
+### Subtask Decomposition
+
+| Subtask | Skills Required | Object | Object Mass |
+|---------|----------------|--------|-------------|
+| SubTask 1: Break the Cellphone | GoToObject, BreakObject | CellPhone | 0.16 |
+| SubTask 2: Close the Blinds | GoToObject, CloseObject | Blinds | 0.0 |
+
+**Dependency Analysis:** These two subtasks are **independent** — breaking the cellphone does not affect closing the blinds. They can be executed **in parallel**.
+
+---
+
+## Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject | 100 |
+| robot2 | GoToObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+| robot3 | GoToObject, SliceObject, PickupObject | 100 |
+
+---
+
+## Skill Matching
+
+**SubTask 1 — Break the Cellphone** (needs `GoToObject`, `BreakObject`):
+- robot1: ❌ missing `BreakObject`
+- robot2: ✅ has both `GoToObject` and `BreakObject`
+- robot3: ❌ missing `BreakObject`
+- **→ Assigned to robot2**
+
+**SubTask 2 — Close the Blinds** (needs `GoToObject`, `CloseObject`):
+- robot1: ✅ has both `GoToObject` and `CloseObject`
+- robot2: ❌ missing `CloseObject`
+- robot3: ❌ missing `CloseObject`
+- **→ Assigned to robot1**
+
+---
+
+## Mass Capacity Check
+
+- CellPhone mass = 0.16 ≤ robot2 capacity (100) ✅
+- Blinds mass = 0.0 ≤ robot1 capacity (100) ✅
+
+No teams are required — each subtask is fully satisfiable by a single robot.
+
+---
+
+## Execution Plan
+
+Since the subtasks are independent and each is assigned to a **different** robot, they can run **in parallel** with no resource contention.
+
+```python
+import threading
+
+def break_cellphone():
+    # SubTask 1 — assigned to robot2
+    GoToObject('CellPhone')
+    BreakObject('CellPhone')
+
+def close_blinds():
+    # SubTask 2 — assigned to robot1
+    GoToObject('Blinds')
+    CloseObject('Blinds')
+
+task1_thread = threading.Thread(target=break_cellphone)   # robot2
+task2_thread = threading.Thread(target=close_blinds)      # robot1
+
+task1_thread.start()
+task2_thread.start()
+task1_thread.join()
+task2_thread.join()
+```
+
+---
+
+## Final Allocation Summary
+
+| Subtask | Assigned Robot | Skills Matched | Mass OK | Execution |
+|---------|---------------|----------------|---------|-----------|
+| Break the Cellphone | **robot2** | GoToObject, BreakObject | ✅ | Parallel |
+| Close the Blinds | **robot1** | GoToObject, CloseObject | ✅ | Parallel |
+
+**Minimum robots used: 2** (robot1 and robot2). robot3 is not needed because it lacks both `BreakObject` and `CloseObject` skills, and no team formation is necessary since each subtask is fully covered by a single robot. The two subtasks are independent, so they execute in parallel on separate robots for maximum efficiency.

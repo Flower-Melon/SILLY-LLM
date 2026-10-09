@@ -1,0 +1,77 @@
+# Task Allocation Solution
+
+## Step 1: Analyze Subtasks, Skills, and Mass Requirements
+
+**SubTask 1: Throw the cloth in trash**
+- Skills Required: `GoToObject`, `PickupObject`, `ThrowObject`
+- Object involved in Pickup: Cloth (mass = 0.045)
+- Object involved in Throw: GarbageCan (mass = 0.7)
+
+**SubTask 2: Fill water in the BathTub**
+- Skills Required: `GoToObject`, `SwitchOn`, `SwitchOff`
+- Objects involved: Bathtub (mass = 0.0), Faucet (mass = 0.0)
+- No PickupObject required, so mass capacity is not a constraint here.
+
+## Step 2: Analyze Robot Capabilities
+
+There is only **1 robot** available:
+- **robot1** skills: `GoToObject`, `OpenObject`, `CloseObject`, `BreakObject`, `SliceObject`, `SwitchOn`, `SwitchOff`, `PickupObject`, `PutObject`, `DropHandObject`, `ThrowObject`, `PushObject`, `PullObject`
+- **robot1** mass_capacity: 100
+
+## Step 3: Match Skills and Mass
+
+**SubTask 1 (Throw the cloth in trash):**
+- Required skills: `GoToObject` ✓, `PickupObject` ✓, `ThrowObject` ✓ — robot1 has all of them.
+- Max mass handled: Cloth (0.045) and GarbageCan (0.7) — both well within robot1's capacity of 100.
+- ✅ robot1 can perform this subtask alone.
+
+**SubTask 2 (Fill water in the BathTub):**
+- Required skills: `GoToObject` ✓, `SwitchOn` ✓, `SwitchOff` ✓ — robot1 has all of them.
+- Mass: Bathtub (0.0), Faucet (0.0) — no mass constraint.
+- ✅ robot1 can perform this subtask alone.
+
+## Step 4: Determine Execution Order
+
+The two subtasks are **independent** (no shared objects, no dependency between them), so they *could* run in parallel. However, there is only **one robot** available, and a single robot cannot execute two subtasks simultaneously. Therefore, the subtasks must be **serialized** on robot1.
+
+## Step 5: Final Allocation
+
+| Subtask | Skills Required | Assigned To | Mass Check | Execution |
+|---|---|---|---|---|
+| Throw the cloth in trash | GoToObject, PickupObject, ThrowObject | robot1 | 0.7 ≤ 100 ✓ | Sequential (1st) |
+| Fill water in the BathTub | GoToObject, SwitchOn, SwitchOff | robot1 | 0.0 ≤ 100 ✓ | Sequential (2nd) |
+
+**Minimum number of robots used: 1 (robot1)**
+
+No team formation is needed because robot1 possesses all required skills and sufficient mass capacity for both subtasks. Since only one robot is available, the two subtasks are executed **sequentially** rather than in parallel, even though they are logically independent.
+
+## Step 6: Execution Code
+
+```python
+import time
+
+def throw_cloth_in_trash():
+    # SubTask 1: Throw the cloth in trash
+    GoToObject('Cloth')
+    PickupObject('Cloth')
+    GoToObject('GarbageCan')
+    ThrowObject('Cloth', 'GarbageCan')
+
+def fill_water_in_bathtub():
+    # SubTask 2: Fill water in the BathTub
+    GoToObject('Bathtub')
+    SwitchOn('Faucet')
+    time.sleep(5)
+    SwitchOff('Faucet')
+
+# Only one robot available -> serialize the subtasks
+throw_cloth_in_trash()
+fill_water_in_bathtub()
+```
+
+## Summary
+
+- **Subtasks identified:** 2 (Throw cloth in trash; Fill water in Bathtub)
+- **Robots required:** 1 (robot1)
+- **Teams required:** None — robot1 has all skills (`GoToObject`, `PickupObject`, `ThrowObject`, `SwitchOn`, `SwitchOff`) and mass capacity (100) far exceeds the heaviest object (GarbageCan, 0.7).
+- **Execution mode:** Sequential (parallelism is not possible with a single robot, despite the subtasks being independent).

@@ -1,0 +1,18 @@
+Going to  Book|-02.53|+00.70|-05.12 {'x': -2.52541446685791, 'y': 0.7093604803085327, 'z': -5.124729633331299}
+Going to  Newspaper|-04.24|+00.34|-02.16 {'x': -4.237378120422363, 'y': 0.3544958531856537, 'z': -2.1638197898864746}
+Reached:  Newspaper
+PIcking:  Newspaper
+Picking Up  Newspaper|-04.24|+00.34|-02.16 {'x': -4.237378120422363, 'y': 0.3544958531856537, 'z': -2.1638197898864746}
+Going to  GarbageCan|-00.97|-00.03|-05.06 {'x': -0.9577058553695679, 'y': 0.3192920684814453, 'z': -5.0583600997924805}
+Reached:  Book
+PIcking:  Book
+Picking Up  Book|-02.53|+00.70|-05.12 {'x': -2.52541446685791, 'y': 0.7093604803085327, 'z': -5.124729633331299}
+Going to  GarbageCan|-00.97|-00.03|-05.06 {'x': -0.9577058553695679, 'y': 0.3192920684814453, 'z': -5.0583600997924805}
+Reached:  GarbageCan
+Reached:  GarbageCan
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Trash_the_book_and_newspaper_plans_2026-10-09-11-23-54-264851/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Trash_the_book_and_newspaper_plans_2026-10-09-11-23-54-264851/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Trash_the_book_and_newspaper_plans_2026-10-09-11-23-54-264851/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Trash_the_book_and_newspaper_plans_2026-10-09-11-23-54-264851/video_agent_4.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Trash_the_book_and_newspaper_plans_2026-10-09-11-23-54-264851/video_top_view.mp4

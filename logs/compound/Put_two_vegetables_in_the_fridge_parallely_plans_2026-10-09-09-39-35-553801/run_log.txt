@@ -1,0 +1,27 @@
+Going to  Lettuce|-00.28|+00.97|+01.15 {'x': -0.28047120571136475, 'y': 0.9752742052078247, 'z': 1.1467573642730713}
+Going to  Tomato|-01.65|+00.88|-01.14 {'x': -1.6469435691833496, 'y': 0.8766357898712158, 'z': -1.139109492301941}
+Reached:  Lettuce
+PIcking:  Lettuce
+Picking Up  Lettuce|-00.28|+00.97|+01.15 {'x': -0.28047120571136475, 'y': 0.9752742052078247, 'z': 1.1467573642730713}
+Reached:  Tomato
+PIcking:  Tomato
+Picking Up  Tomato|-01.65|+00.88|-01.14 {'x': -1.6469435691833496, 'y': 0.8766357898712158, 'z': -1.139109492301941}
+Going to  Fridge|+00.68|-00.03|-01.96 {'x': 0.6799988746643066, 'y': 0.8935573101043701, 'z': -1.9614769220352173}
+Going to  Fridge|+00.68|-00.03|-01.96 {'x': 0.6799988746643066, 'y': 0.8935573101043701, 'z': -1.9614769220352173}
+Reached:  Fridge
+Going to  Fridge|+00.68|-00.03|-01.96 {'x': 0.68, 'y': -0.03, 'z': -1.96}
+Reached:  Fridge|+00.68|-00.03|-01.96
+Going to  Fridge|+00.68|-00.03|-01.96 {'x': 0.68, 'y': -0.03, 'z': -1.96}
+Reached:  Fridge|+00.68|-00.03|-01.96
+Blocked by robot3; teleporting it away from the goal
+Reached:  Fridge
+Going to  Fridge|+00.68|-00.03|-01.96 {'x': 0.68, 'y': -0.03, 'z': -1.96}
+Reached:  Fridge|+00.68|-00.03|-01.96
+Going to  Fridge|+00.68|-00.03|-01.96 {'x': 0.68, 'y': -0.03, 'z': -1.96}
+Reached:  Fridge|+00.68|-00.03|-01.96
+SR:0, TC:0, GCR:0.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_two_vegetables_in_the_fridge_parallely_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_two_vegetables_in_the_fridge_parallely_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_two_vegetables_in_the_fridge_parallely_plans_2026-10-09-09-39-35-553801/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_two_vegetables_in_the_fridge_parallely_plans_2026-10-09-09-39-35-553801/video_agent_4.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_two_vegetables_in_the_fridge_parallely_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

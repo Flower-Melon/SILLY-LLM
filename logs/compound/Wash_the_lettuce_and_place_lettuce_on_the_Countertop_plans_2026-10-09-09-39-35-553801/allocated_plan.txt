@@ -1,0 +1,92 @@
+# Task Allocation: Wash the Lettuce and Place It on the Countertop
+
+## 1. Subtask Decomposition
+
+| Subtask | Description | Required Skills | Object(s) & Mass |
+|---------|-------------|-----------------|------------------|
+| **SubTask 1** | Wash the Lettuce | `GoToObject`, `PickupObject`, `PutObject`, `SwitchOn`, `SwitchOff` | Lettuce (0.47), Sink (0.0), Faucet (0.0) |
+| **SubTask 2** | Place the Lettuce on the Countertop | `GoToObject`, `PickupObject`, `PutObject` | Lettuce (0.47), CounterTop (0.0) |
+
+**Dependency:** SubTask 2 depends on SubTask 1 (the lettuce must be washed before it is placed on the countertop). Therefore, they must be executed **sequentially**, not in parallel.
+
+---
+
+## 2. Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| **robot1** | GoToObject, BreakObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+| **robot2** | GoToObject, PickupObject, PutObject | 100 |
+| **robot3** | GoToObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+
+All robots have a mass capacity of **100**, which far exceeds the heaviest object involved (Lettuce = 0.47). So **mass is not a constraint** here — allocation is driven purely by **skills**.
+
+---
+
+## 3. Skill Matching
+
+### SubTask 1 — Wash the Lettuce
+Required: `GoToObject`, `PickupObject`, `PutObject`, `SwitchOn`, `SwitchOff`
+
+- **robot1**: ✅ has all five skills
+- **robot2**: ❌ missing `SwitchOn`, `SwitchOff`
+- **robot3**: ✅ has all five skills
+
+→ SubTask 1 can be performed by **robot1 or robot3** individually. No team needed.
+
+### SubTask 2 — Place the Lettuce on the Countertop
+Required: `GoToObject`, `PickupObject`, `PutObject`
+
+- **robot1**: ✅
+- **robot2**: ✅
+- **robot3**: ✅
+
+→ SubTask 2 can be performed by **any robot** individually.
+
+---
+
+## 4. Allocation Decision (Minimum Number of Robots)
+
+Since SubTask 2 must run **after** SubTask 1, and both subtasks can be handled by a single robot, the minimum number of robots required is **1**.
+
+**Choose robot3** for both subtasks because:
+- It possesses every skill needed for SubTask 1 (including `SwitchOn`/`SwitchOff`).
+- It also possesses every skill needed for SubTask 2.
+- Using one robot avoids unnecessary hand-off of the lettuce between robots.
+
+> (robot1 would also work, but robot3 is selected as the single capable robot; robot2 is excluded because it lacks the switch skills for SubTask 1.)
+
+---
+
+## 5. Execution Plan
+
+**Sequential execution using robot3 only:**
+
+```
+Step 1 (SubTask 1 – Wash the Lettuce) — robot3:
+    GoToObject('Lettuce')
+    PickupObject('Lettuce')
+    GoToObject('Sink')
+    PutObject('Lettuce', 'Sink')
+    SwitchOn('Faucet')
+    time.sleep(5)
+    SwitchOff('Faucet')
+    PickupObject('Lettuce')
+
+Step 2 (SubTask 2 – Place Lettuce on Countertop) — robot3:
+    GoToObject('CounterTop')
+    PutObject('Lettuce', 'CounterTop')
+```
+
+---
+
+## 6. Summary
+
+| Subtask | Assigned Robot(s) | Execution Mode | Reason |
+|---------|-------------------|----------------|--------|
+| Wash the Lettuce | robot3 | Sequential (first) | robot3 has all required skills; mass 0.47 ≪ 100 |
+| Place Lettuce on Countertop | robot3 | Sequential (after SubTask 1) | Depends on SubTask 1; robot3 has all required skills |
+
+- **Total robots used: 1 (robot3)** — the minimum possible.
+- **No teams required**, since a single robot satisfies both the skill and mass requirements for each subtask.
+- **No parallelism possible**, because SubTask 2 depends on the completion of SubTask 1 (the lettuce must be washed before being placed on the countertop).

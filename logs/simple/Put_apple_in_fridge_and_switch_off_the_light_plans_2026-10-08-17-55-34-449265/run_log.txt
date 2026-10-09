@@ -1,0 +1,21 @@
+Going to  Apple|-03.24|+00.97|+02.94 {'x': -3.2419326305389404, 'y': 0.9667198657989502, 'z': 2.951723098754883}
+Going to  LightSwitch|+00.25|+01.38|+02.09 {'x': 0.23191595077514648, 'y': 1.3814234733581543, 'z': 2.0859999656677246}
+Reached:  LightSwitch
+Switching Off:  LightSwitch
+Going to  LightSwitch|+00.25|+01.38|+02.09 {'x': 0.25, 'y': 1.38, 'z': 2.09}
+Reached:  Apple
+Reached:  LightSwitch|+00.25|+01.38|+02.09PIcking:  Apple
+
+Picking Up  Apple|-03.24|+00.97|+02.94 {'x': -3.2419326305389404, 'y': 0.9667198657989502, 'z': 2.951723098754883}
+Going to  Fridge|-00.44|+00.01|+04.00 {'x': -0.43213582038879395, 'y': 0.947960376739502, 'z': 3.9271628856658936}
+Blocked by robot3; teleporting it away from the goal
+Reached:  Fridge
+Going to  Fridge|-00.44|+00.01|+04.00 {'x': -0.44, 'y': 0.01, 'z': 4.0}
+Reached:  Fridge|-00.44|+00.01|+04.00
+Going to  Fridge|-00.44|+00.01|+04.00 {'x': -0.44, 'y': 0.01, 'z': 4.0}
+Reached:  Fridge|-00.44|+00.01|+04.00
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_apple_in_fridge_and_switch_off_the_light_plans_2026-10-08-17-55-34-449265/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_apple_in_fridge_and_switch_off_the_light_plans_2026-10-08-17-55-34-449265/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_apple_in_fridge_and_switch_off_the_light_plans_2026-10-08-17-55-34-449265/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_apple_in_fridge_and_switch_off_the_light_plans_2026-10-08-17-55-34-449265/video_top_view.mp4

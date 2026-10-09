@@ -2,8 +2,12 @@
 
 total_exec = 0
 success_exec = 0
+sim_error_count = 0
 
-c = Controller( height=1000, width=1000)
+# server_timeout caps how long one action may hang inside Unity before the
+# bridge gives up (ai2thor defaults to 100s; a stuck action such as closing
+# the FloorPlan303 blinds would otherwise stall the whole run for 100 seconds).
+c = Controller( height=1000, width=1000, server_timeout=20)
 c.reset("FloorPlan" + str(floor_no)) 
 no_robot = len(robots)
 
@@ -18,9 +22,16 @@ event = c.step(action="AddThirdPartyCamera", **event.metadata["actionReturn"])
 reachable_positions_ = c.step(action="GetReachablePositions").metadata["actionReturn"]
 reachable_positions = positions_tuple = [(p["x"], p["y"], p["z"]) for p in reachable_positions_]
 
-# randomize postions of the agents
+# Randomize positions of the agents, keeping at least 1 m between robots so
+# that they do not spawn blocking each other's collision volume.
+spawn_positions = []
 for i in range (no_robot):
-    init_pos = random.choice(reachable_positions_)
+    for _ in range(50):
+        init_pos = random.choice(reachable_positions_)
+        if all(distance_pts([init_pos['x'], init_pos['y'], init_pos['z']],
+                            [p['x'], p['y'], p['z']]) >= 1.0 for p in spawn_positions):
+            break
+    spawn_positions.append(init_pos)
     c.step(dict(action="Teleport", position=init_pos, agentId=i))
     
 objs = list([obj["objectId"] for obj in c.last_event.metadata["objects"]])
@@ -41,7 +52,7 @@ for i in range (no_robot):
     # c.step(action="LookUp", degrees=30, 'agent_id':i)
 
 def exec_actions():
-    global total_exec, success_exec
+    global total_exec, success_exec, sim_error_count
     # delete if current output already exist
     cur_path = os.path.dirname(__file__) + "/*/"
     for x in glob(cur_path, recursive = True):
@@ -79,6 +90,9 @@ def exec_actions():
                 elif act['action'] == 'MoveBack':
                     multi_agent_event = c.step(action="MoveBack", agentId=act['agent_id'])
                         
+                elif act['action'] == 'Teleport':
+                    multi_agent_event = c.step(dict(action="Teleport", position=act['position'], agentId=act['agent_id'], forceAction=True))
+
                 elif act['action'] == 'RotateLeft':
                     multi_agent_event = c.step(action="RotateLeft", degrees=act['degrees'], agentId=act['agent_id'])
                     
@@ -174,19 +188,21 @@ def exec_actions():
                     
             except Exception as e:
                 print (e)
+                sim_error_count += 1
                 
-            for i,e in enumerate(multi_agent_event.events):
-                cv2.imshow('agent%s' % i, e.cv2img)
-                f_name = os.path.dirname(__file__) + "/agent_" + str(i+1) + "/img_" + str(img_counter).zfill(5) + ".png"
-                cv2.imwrite(f_name, e.cv2img)
-            top_view_rgb = cv2.cvtColor(c.last_event.events[0].third_party_camera_frames[-1], cv2.COLOR_BGR2RGB)
-            cv2.imshow('Top View', top_view_rgb)
-            f_name = os.path.dirname(__file__) + "/top_view/img_" + str(img_counter).zfill(5) + ".png"
-            cv2.imwrite(f_name, top_view_rgb)
-            if cv2.waitKey(25) & 0xFF == ord('q'):
-                break
-            
-            img_counter += 1    
+            if act['action'] != 'Done':
+                for i,e in enumerate(multi_agent_event.events):
+                    cv2.imshow('agent%s' % i, e.cv2img)
+                    f_name = os.path.dirname(__file__) + "/agent_" + str(i+1) + "/img_" + str(img_counter).zfill(5) + ".png"
+                    cv2.imwrite(f_name, e.cv2img)
+                top_view_rgb = cv2.cvtColor(c.last_event.events[0].third_party_camera_frames[-1], cv2.COLOR_BGR2RGB)
+                cv2.imshow('Top View', top_view_rgb)
+                f_name = os.path.dirname(__file__) + "/top_view/img_" + str(img_counter).zfill(5) + ".png"
+                cv2.imwrite(f_name, top_view_rgb)
+                if cv2.waitKey(25) & 0xFF == ord('q'):
+                    break
+
+            img_counter += 1
             action_queue.pop(0)
         else:
             time.sleep(0.01)
@@ -194,8 +210,21 @@ def exec_actions():
 actions_thread = threading.Thread(target=exec_actions)
 actions_thread.start()
 
+def coerce_robots(value):
+    """Accept a robot dict, a robot name string like 'robot1', or a list of
+    either; return the matching robot dict(s). Generated code occasionally
+    passes robots[0]['name'] instead of the robot dict."""
+    if isinstance(value, str):
+        return next((r for r in robots if r['name'] == value), value)
+    if isinstance(value, list):
+        return [coerce_robots(item) for item in value]
+    return value
+
+
 def GoToObject(robots, dest_obj):
     global recp_id
+
+    robots = coerce_robots(robots)
     
     # check if robots is a list
     
@@ -237,9 +266,17 @@ def GoToObject(robots, dest_obj):
     crp = closest_node(dest_obj_pos, reachable_positions, no_agents, clost_node_location)
     
     goal_thresh = 0.25
+    others_seen = {}
+    relocated_agents = set()
     # at least one robot is far away from the goal
     
     while any(d > goal_thresh for d in dist_goals):
+        if sim_error_count >= 10:
+            # The simulator stopped responding (e.g. an action hung until the
+            # server timeout); navigation can never succeed, so give up instead
+            # of spinning forever and let the run finish and report results.
+            print ("Simulator stopped responding; abandoning navigation to", dest_obj)
+            return
         for ia, robot in enumerate(robots):
             robot_name = robot['name']
             agent_id = int(robot_name[5:]) - 1
@@ -252,7 +289,17 @@ def GoToObject(robots, dest_obj):
                 "z": metadata["agent"]["position"]["z"],
                 "rotation": metadata["agent"]["rotation"]["y"],
                 "horizon": metadata["agent"]["cameraHorizon"]}
-            
+
+            # Track the other agents' positions so that long-stationary robots
+            # (idle blockers) can be told apart from robots that are working.
+            for other_id in range(len(c.last_event.events)):
+                if other_id == agent_id:
+                    continue
+                other_pos = c.last_event.events[other_id].metadata["agent"]["position"]
+                other_key = (round(other_pos["x"], 2), round(other_pos["z"], 2))
+                last_key, still = others_seen.get(other_id, (None, 0))
+                others_seen[other_id] = (other_key, still + 1 if other_key == last_key else 0)
+
             prev_dist_goals[ia] = dist_goals[ia] # store the previous distance to goal
             dist_goals[ia] = distance_pts([location['x'], location['y'], location['z']], crp[ia])
             if dist_goals[ia] <= goal_thresh:
@@ -274,6 +321,44 @@ def GoToObject(robots, dest_obj):
                 clost_node_location[ia] += 1
                 count_since_update[ia] = 0
                 crp = closest_node(dest_obj_pos, reachable_positions, no_agents, clost_node_location)
+                if clost_node_location[ia] % 3 == 0:
+                    # No progress after several candidate goals: the robot is
+                    # most likely blocked by another robot's collision volume.
+                    # First move long-stationary robots near the acting robot or
+                    # its goal out of the way; only if there is no such blocker,
+                    # teleport the acting robot to the candidate goal.
+                    relocated = False
+                    away_spots = []
+                    for other_id, (key, still) in others_seen.items():
+                        if still < 10 or other_id in relocated_agents:
+                            continue
+                        other_pos = c.last_event.events[other_id].metadata["agent"]["position"]
+                        near_robot = distance_pts([other_pos["x"], other_pos["y"], other_pos["z"]],
+                                                  [location['x'], location['y'], location['z']]) < 1.2
+                        near_goal = distance_pts([other_pos["x"], other_pos["y"], other_pos["z"]],
+                                                 dest_obj_pos) < 1.2
+                        if not (near_robot or near_goal):
+                            continue
+                        candidates = sorted(reachable_positions,
+                                            key=lambda p: -distance_pts(list(p), dest_obj_pos))
+                        away = next((p for p in candidates
+                                     if distance_pts(list(p), [location['x'], location['y'], location['z']]) > 2.0
+                                     and all(distance_pts(list(p), list(s)) > 1.0 for s in away_spots)), None)
+                        if away is None:
+                            continue
+                        print ("Blocked by robot" + str(other_id + 1) + "; teleporting it away from the goal")
+                        action_queue.append({'action':'Teleport', 'position':dict(x=away[0], y=away[1], z=away[2]), 'agent_id':other_id})
+                        away_spots.append(away)
+                        relocated_agents.add(other_id)
+                        others_seen[other_id] = (None, 0)
+                        relocated = True
+                    if relocated:
+                        # Retry the closest goal position now that the way is clear.
+                        clost_node_location[ia] = 0
+                        crp = closest_node(dest_obj_pos, reachable_positions, no_agents, clost_node_location)
+                    else:
+                        print ("Navigation stalled; teleporting", robot_name, "to", crp[ia])
+                        action_queue.append({'action':'Teleport', 'position':dict(x=crp[ia][0], y=crp[ia][1], z=crp[ia][2]), 'agent_id':agent_id})
     
             time.sleep(0.5)
 
@@ -307,6 +392,7 @@ def GoToObject(robots, dest_obj):
         recp_id = dest_obj_id
     
 def PickupObject(robots, pick_obj):
+    robots = coerce_robots(robots)
     if not isinstance(robots, list):
         # convert robot to a list
         robots = [robots]
@@ -335,6 +421,7 @@ def PickupObject(robots, pick_obj):
         time.sleep(1)
     
 def PutObject(robot, put_obj, recp):
+    robot = coerce_robots(robot)
     robot_name = robot['name']
     agent_id = int(robot_name[5:]) - 1
     objs = [obj["objectId"] for obj in c.last_event.metadata["objects"]]
@@ -363,6 +450,7 @@ def PutObject(robot, put_obj, recp):
     time.sleep(1)
          
 def SwitchOn(robot, sw_obj):
+    robot = coerce_robots(robot)
     print ("Switching On: ", sw_obj)
     robot_name = robot['name']
     agent_id = int(robot_name[5:]) - 1
@@ -392,6 +480,7 @@ def SwitchOn(robot, sw_obj):
         time.sleep(1)            
         
 def SwitchOff(robot, sw_obj):
+    robot = coerce_robots(robot)
     print ("Switching Off: ", sw_obj)
     robot_name = robot['name']
     agent_id = int(robot_name[5:]) - 1
@@ -419,6 +508,7 @@ def SwitchOff(robot, sw_obj):
         time.sleep(1)      
     
 def OpenObject(robot, sw_obj):
+    robot = coerce_robots(robot)
     robot_name = robot['name']
     agent_id = int(robot_name[5:]) - 1
     objs = list(set([obj["objectId"] for obj in c.last_event.metadata["objects"]]))
@@ -432,13 +522,25 @@ def OpenObject(robot, sw_obj):
     global recp_id
     if recp_id is not None:
         sw_obj_id = recp_id
-    
+
+    current = next((obj for obj in c.last_event.metadata["objects"]
+                    if obj["objectId"] == sw_obj_id), None)
+    if current is not None and current.get("isOpen") is True:
+        # Already open: replaying the animation is a pointless no-op, and on
+        # some objects (e.g. the FloorPlan303 blinds) it hangs this AI2-THOR
+        # build until the server timeout kills the whole simulator.
+        print ("OpenObject skipped: ", sw_obj_id, "is already open")
+        if recp_id is not None:
+            recp_id = None
+        return
+
     GoToObject(robot, sw_obj_id)
     time.sleep(1)
     action_queue.append({'action':'OpenObject', 'objectId':sw_obj_id, 'agent_id':agent_id})
     time.sleep(1)
     
 def CloseObject(robot, sw_obj):
+    robot = coerce_robots(robot)
     robot_name = robot['name']
     agent_id = int(robot_name[5:]) - 1
     objs = list(set([obj["objectId"] for obj in c.last_event.metadata["objects"]]))
@@ -452,17 +554,29 @@ def CloseObject(robot, sw_obj):
     global recp_id
     if recp_id is not None:
         sw_obj_id = recp_id
-        
+
+    current = next((obj for obj in c.last_event.metadata["objects"]
+                    if obj["objectId"] == sw_obj_id), None)
+    if current is not None and current.get("isOpen") is False:
+        # Already closed: replaying the animation is a pointless no-op, and on
+        # some objects (e.g. the FloorPlan303 blinds) it hangs this AI2-THOR
+        # build until the server timeout kills the whole simulator.
+        print ("CloseObject skipped: ", sw_obj_id, "is already closed")
+        if recp_id is not None:
+            recp_id = None
+        return
+
     GoToObject(robot, sw_obj_id)
     time.sleep(1)
-    
-    action_queue.append({'action':'CloseObject', 'objectId':sw_obj_id, 'agent_id':agent_id}) 
-    
+
+    action_queue.append({'action':'CloseObject', 'objectId':sw_obj_id, 'agent_id':agent_id})
+
     if recp_id is not None:
         recp_id = None
     time.sleep(1)
     
 def BreakObject(robot, sw_obj):
+    robot = coerce_robots(robot)
     robot_name = robot['name']
     agent_id = int(robot_name[5:]) - 1
     objs = list(set([obj["objectId"] for obj in c.last_event.metadata["objects"]]))
@@ -478,6 +592,7 @@ def BreakObject(robot, sw_obj):
     time.sleep(1)
     
 def SliceObject(robot, sw_obj):
+    robot = coerce_robots(robot)
     print ("Slicing: ", sw_obj)
     robot_name = robot['name']
     agent_id = int(robot_name[5:]) - 1
@@ -494,6 +609,7 @@ def SliceObject(robot, sw_obj):
     time.sleep(1)
     
 def CleanObject(robot, sw_obj):
+    robot = coerce_robots(robot)
     robot_name = robot['name']
     agent_id = int(robot_name[5:]) - 1
     objs = list(set([obj["objectId"] for obj in c.last_event.metadata["objects"]]))
@@ -509,6 +625,7 @@ def CleanObject(robot, sw_obj):
     time.sleep(1)
     
 def ThrowObject(robot, sw_obj, recp=None):
+    robot = coerce_robots(robot)
     if isinstance(robot, list):
         # A coalition's held object belongs to one simulator agent.
         holders = [member for member in robot

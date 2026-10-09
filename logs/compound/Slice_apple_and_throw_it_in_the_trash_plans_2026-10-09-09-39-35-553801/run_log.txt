@@ -1,0 +1,27 @@
+Going to  Knife|+00.74|+00.76|-00.19 {'x': 0.7141741514205933, 'y': 0.7575367093086243, 'z': -0.21821387112140656}
+Reached:  Knife
+PIcking:  Knife
+Picking Up  Knife|+00.74|+00.76|-00.19 {'x': 0.7141741514205933, 'y': 0.7575367093086243, 'z': -0.21821387112140656}
+Going to  Apple|-01.90|+00.87|-01.40 {'x': -1.8985345363616943, 'y': 0.8740527629852295, 'z': -1.398831844329834}
+Reached:  Apple
+Slicing:  Apple
+Going to  Apple|-01.90|+00.87|-01.40 {'x': -1.9, 'y': 0.87, 'z': -1.4}
+Reached:  Apple|-01.90|+00.87|-01.40
+Going to  CounterTop|+00.79|+00.92|-00.11 {'x': 0.8001425266265869, 'y': 0.8812419176101685, 'z': -0.41060352325439453}
+Reached:  CounterTop
+Going to  Apple|-01.90|+00.87|-01.40|AppleSliced_0 {'x': -1.9259699583053589, 'y': 0.8613339066505432, 'z': -1.367473840713501}
+Reached:  Apple
+PIcking:  Apple
+Picking Up  Apple|-01.90|+00.87|-01.40|AppleSliced_0 {'x': -1.9259699583053589, 'y': 0.8613339066505432, 'z': -1.367473840713501}
+Going to  GarbageCan|-01.26|-00.03|-03.61 {'x': -1.2609970569610596, 'y': 0.2965203821659088, 'z': -3.61099910736084}
+Reached:  GarbageCan
+Going to  GarbageCan|-01.26|-00.03|-03.61 {'x': -1.2609970569610596, 'y': 0.2965203821659088, 'z': -3.61099910736084}
+Reached:  GarbageCan
+InvalidOperationException: Nothing in Hand to Throw!. trace:   at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.ThrowObject (System.Single moveMagnitude, System.Boolean forceAction, System.Boolean autoSimulation) [0x0000e] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 
+SR:0, TC:0, GCR:0.5, Exec:0.8, RU:0.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Slice_apple_and_throw_it_in_the_trash_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Slice_apple_and_throw_it_in_the_trash_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Slice_apple_and_throw_it_in_the_trash_plans_2026-10-09-09-39-35-553801/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Slice_apple_and_throw_it_in_the_trash_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

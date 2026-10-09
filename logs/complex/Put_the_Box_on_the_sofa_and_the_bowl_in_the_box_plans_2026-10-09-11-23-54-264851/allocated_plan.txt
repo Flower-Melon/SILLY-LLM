@@ -1,0 +1,81 @@
+# Task Allocation Solution
+
+## Task Analysis
+
+**Task Description:** Put the Box on the sofa and the bowl in the box
+
+### Subtask Decomposition
+
+**SubTask 1: Put the Box on the Sofa**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Objects involved: Box (mass = 0.30), Sofa (mass = 104.0)
+- **Critical mass constraint:** The robot must pick up the **Box** (mass = 0.30). The Sofa is a receptacle/surface, not picked up.
+
+**SubTask 2: Put the Bowl in the Box**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Objects involved: Bowl (mass = 0.47), Box (mass = 0.30)
+- **Critical mass constraint:** The robot must pick up the **Bowl** (mass = 0.47). The Box is a receptacle.
+
+### Dependency Analysis
+
+There is a **hidden dependency** between the two subtasks that the naive parallel decomposition misses:
+
+- SubTask 1 places the Box on the Sofa.
+- SubTask 2 places the Bowl **into the Box**.
+
+If both run in parallel, SubTask 2's robot would need to locate the Box while SubTask 1's robot is moving it — a race condition. More importantly, the Box must be in a known, stable location before the Bowl can be placed inside it. Therefore, **SubTask 1 must complete before SubTask 2 begins** (sequential execution).
+
+## Robot Capability Check
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, PickupObject, PutObject, ... (13 skills) | 0.4 |
+| robot2 | GoToObject, PickupObject, PutObject, ... (13 skills) | 1.0 |
+
+**Skill check:** Both robots possess all required skills (`GoToObject`, `PickupObject`, `PutObject`).
+
+**Mass check:**
+- SubTask 1 requires lifting the Box (0.30). robot1 (0.4) ✓, robot2 (1.0) ✓
+- SubTask 2 requires lifting the Bowl (0.47). robot1 (0.4) ✗ (insufficient), robot2 (1.0) ✓
+
+## Allocation
+
+Since the subtasks must run **sequentially** (SubTask 1 → SubTask 2), and robot2 can perform **both** subtasks alone (skills ✓, mass ✓ for both), the minimum number of robots required is **1**.
+
+- **SubTask 1** → robot2 (Box mass 0.30 ≤ 1.0)
+- **SubTask 2** → robot2 (Bowl mass 0.47 ≤ 1.0)
+
+Using robot1 for SubTask 1 would not reduce the robot count (robot2 is still needed for SubTask 2), so it would only add complexity without benefit. **Minimum robots = 1 (robot2).**
+
+## Execution Plan
+
+```python
+def put_box_on_sofa():
+    # SubTask 1: Put the Box on the Sofa
+    GoToObject('Box')
+    PickupObject('Box')
+    GoToObject('Sofa')
+    PutObject('Box', 'Sofa')
+
+def put_bowl_in_box():
+    # SubTask 2: Put the Bowl in the Box
+    GoToObject('Bowl')
+    PickupObject('Bowl')
+    GoToObject('Box')
+    PutObject('Bowl', 'Box')
+
+# Sequential execution on robot2 (minimum robots = 1)
+put_box_on_sofa()   # robot2
+put_bowl_in_box()   # robot2
+```
+
+## Summary
+
+| Subtask | Skills | Object Lifted | Mass | Robot | Reason |
+|---------|--------|---------------|------|-------|--------|
+| Put Box on Sofa | GoToObject, PickupObject, PutObject | Box | 0.30 | robot2 | Skills ✓, mass 0.30 ≤ 1.0 ✓ |
+| Put Bowl in Box | GoToObject, PickupObject, PutObject | Bowl | 0.47 | robot2 | Skills ✓, mass 0.47 ≤ 1.0 ✓ (robot1 fails: 0.47 > 0.4) |
+
+**Execution mode:** Sequential (SubTask 2 depends on SubTask 1 completing, since the Box must be placed before the Bowl can go inside it).
+
+**Robots used:** 1 (robot2) — the minimum possible, since robot2 alone satisfies all skill and mass requirements for both subtasks.

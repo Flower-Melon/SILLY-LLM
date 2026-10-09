@@ -1,0 +1,16 @@
+Going to  Mug|-03.38|+00.95|+03.27 {'x': -3.380589485168457, 'y': 0.9970481991767883, 'z': 3.286339044570923}
+Reached:  Mug
+PIcking:  Mug
+Picking Up  Mug|-03.38|+00.95|+03.27 {'x': -3.380589485168457, 'y': 0.9970481991767883, 'z': 3.286339044570923}
+Going to  CoffeeMachine|-03.55|+00.90|+03.27 {'x': -3.5159666538238525, 'y': 1.1329877376556396, 'z': 3.2748570442199707}
+Reached:  CoffeeMachine
+Going to  CoffeeMachine|-03.55|+00.90|+03.27 {'x': -3.5159666538238525, 'y': 1.1329877376556396, 'z': 3.2748570442199707}
+Reached:  CoffeeMachine
+Switching On:  CoffeeMachine
+Going to  CoffeeMachine|-03.55|+00.90|+03.27 {'x': -3.55, 'y': 0.9, 'z': 3.27}
+Reached:  CoffeeMachine|-03.55|+00.90|+03.27
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/put_mug_in_the_coffee_machine_and_switch_on_the_coffee_machine_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/put_mug_in_the_coffee_machine_and_switch_on_the_coffee_machine_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/put_mug_in_the_coffee_machine_and_switch_on_the_coffee_machine_plans_2026-10-09-09-39-35-553801/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/put_mug_in_the_coffee_machine_and_switch_on_the_coffee_machine_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

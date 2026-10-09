@@ -1,0 +1,92 @@
+# Task Allocation Solution
+
+## Task Decomposition
+
+The main task "Slice the lettuce, trash the mug and switch off the light" decomposes into three independent subtasks:
+
+| SubTask | Description | Skills Required | Object(s) & Mass |
+|---------|-------------|-----------------|------------------|
+| SubTask 1 | Slice the lettuce | GoToObject, PickupObject, SliceObject, PutObject | Knife (0.18), Lettuce (0.47), CounterTop (0.0) |
+| SubTask 2 | Trash the mug | GoToObject, PickupObject, PutObject | Mug (1.0), GarbageCan (0.7) |
+| SubTask 3 | Switch off the light | GoToObject, SwitchOff | LightSwitch (0.0) |
+
+## Robot Analysis
+
+All three robots share the **same skill set** (13 skills each), including all skills needed: `GoToObject`, `PickupObject`, `SliceObject`, `PutObject`, `SwitchOff`. So there is **no skill gap** — any robot can perform any subtask skill-wise.
+
+The differentiator is **mass capacity**:
+
+| Robot | Mass Capacity |
+|-------|---------------|
+| robot1 | 0.4 |
+| robot2 | 2.1 |
+| robot3 | 1.0 |
+
+## Mass Feasibility Check
+
+- **SubTask 1 (Slice lettuce):** The heaviest object picked up is the Knife (0.18) and Lettuce (0.47). Max mass = 0.47. All robots (0.4, 2.1, 1.0) — robot1 (0.4) is **too weak** for the Lettuce (0.47). Robots 2 and 3 qualify.
+- **SubTask 2 (Trash mug):** Mug mass = 1.0. Robots with capacity ≥ 1.0: robot2 (2.1) and robot3 (1.0). Robot1 (0.4) fails.
+- **SubTask 3 (Switch off light):** LightSwitch mass = 0.0 (no pickup). Any robot qualifies.
+
+## Allocation Strategy
+
+Since all subtasks are **independent**, they can run in **parallel**. We want the **minimum number of robots** while respecting mass constraints.
+
+- SubTask 1 → needs capacity ≥ 0.47 → **robot2** (2.1) or robot3 (1.0)
+- SubTask 2 → needs capacity ≥ 1.0 → **robot2** (2.1) or robot3 (1.0)
+- SubTask 3 → any robot
+
+**Minimum robots = 2.** Assign:
+- **robot2** → SubTask 1 (Slice lettuce) — capacity 2.1 ≥ 0.47 ✓
+- **robot3** → SubTask 2 (Trash mug) — capacity 1.0 ≥ 1.0 ✓
+- **robot3** → SubTask 3 (Switch off light) — no mass constraint ✓
+
+Robot3 handles SubTask 2 and SubTask 3 **sequentially** (a single robot cannot do two things at once). SubTask 1 runs **in parallel** on robot2.
+
+Robot1 is not needed (its capacity 0.4 is insufficient for both pickup subtasks).
+
+## Final Allocation
+
+| SubTask | Assigned Robot | Execution |
+|---------|----------------|-----------|
+| Slice the lettuce | robot2 | Parallel (thread 1) |
+| Trash the mug | robot3 | Sequential (first) |
+| Switch off the light | robot3 | Sequential (after trash mug) |
+
+```python
+import threading
+
+def slice_lettuce():
+    GoToObject('Knife')
+    PickupObject('Knife')
+    GoToObject('Lettuce')
+    SliceObject('Lettuce')
+    GoToObject('CounterTop')
+    PutObject('Knife', 'CounterTop')
+
+def trash_mug_and_switch_light():
+    # SubTask 2: Trash the mug
+    GoToObject('Mug')
+    PickupObject('Mug')
+    GoToObject('GarbageCan')
+    PutObject('Mug', 'GarbageCan')
+    # SubTask 3: Switch off the light (sequential on same robot)
+    GoToObject('LightSwitch')
+    SwitchOff('LightSwitch')
+
+# robot2 handles SubTask 1; robot3 handles SubTasks 2 & 3 sequentially
+t1 = threading.Thread(target=slice_lettuce)                 # robot2
+t2 = threading.Thread(target=trash_mug_and_switch_light)    # robot3
+
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+```
+
+## Summary
+
+- **Robots used: 2** (robot2 and robot3) — the minimum feasible, since robot1's mass capacity (0.4) cannot handle the Lettuce (0.47) or Mug (1.0).
+- **No teams required** — each subtask is fully covered by a single robot's skills and mass capacity.
+- **Parallelism:** SubTask 1 (robot2) runs in parallel with the robot3 chain.
+- **Sequential execution:** SubTasks 2 and 3 are serialized on robot3 because one robot cannot perform two actions simultaneously.

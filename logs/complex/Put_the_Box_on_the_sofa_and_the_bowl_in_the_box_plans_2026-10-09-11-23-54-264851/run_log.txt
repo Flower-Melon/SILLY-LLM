@@ -1,0 +1,16 @@
+Going to  Box|-03.36|+00.19|+06.43 {'x': -3.3634157180786133, 'y': 0.1636495441198349, 'z': 6.257883071899414}
+Reached:  Box
+PIcking:  Box
+Picking Up  Box|-03.36|+00.19|+06.43 {'x': -3.3634157180786133, 'y': 0.1636495441198349, 'z': 6.257883071899414}
+Going to  Sofa|-02.40|00.00|+03.42 {'x': -2.399996757507324, 'y': 0.5770387053489685, 'z': 3.4033007621765137}
+Reached:  Sofa
+Going to  Bowl|-02.45|+00.60|+04.79 {'x': -2.448012351989746, 'y': 0.6395652890205383, 'z': 4.7870025634765625}
+Reached:  Bowl
+PIcking:  Bowl
+Picking Up  Bowl|-02.45|+00.60|+04.79 {'x': -2.448012351989746, 'y': 0.6395652890205383, 'z': 4.7870025634765625}
+Going to  Box|-03.36|+00.19|+06.43 {'x': -1.6111629009246826, 'y': 0.7171352505683899, 'z': 3.627347946166992}
+Reached:  Box
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_Box_on_the_sofa_and_the_bowl_in_the_box_plans_2026-10-09-11-23-54-264851/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_Box_on_the_sofa_and_the_bowl_in_the_box_plans_2026-10-09-11-23-54-264851/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_Box_on_the_sofa_and_the_bowl_in_the_box_plans_2026-10-09-11-23-54-264851/video_top_view.mp4

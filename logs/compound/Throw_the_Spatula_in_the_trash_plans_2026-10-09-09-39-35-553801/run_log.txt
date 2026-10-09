@@ -1,0 +1,15 @@
+Going to  Spatula|-02.31|+00.91|+00.33 {'x': -2.382664203643799, 'y': 0.9086782932281494, 'z': 0.37931641936302185}
+Reached:  Spatula
+PIcking:  Spatula
+Picking Up  Spatula|-02.31|+00.91|+00.33 {'x': -2.382664203643799, 'y': 0.9086782932281494, 'z': 0.37931641936302185}
+Going to  GarbageCan|+01.65|00.00|+00.68 {'x': 1.6471350193023682, 'y': 0.27308812737464905, 'z': 0.6800844669342041}
+Reached:  GarbageCan
+Going to  GarbageCan|+01.65|00.00|+00.68 {'x': 1.6471350193023682, 'y': 0.27308812737464905, 'z': 0.6800844669342041}
+Reached:  GarbageCan
+InvalidOperationException: Nothing in Hand to Throw!. trace:   at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.ThrowObject (System.Single moveMagnitude, System.Boolean forceAction, System.Boolean autoSimulation) [0x0000e] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 
+SR:0, TC:0, GCR:0.0, Exec:0.5, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Throw_the_Spatula_in_the_trash_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Throw_the_Spatula_in_the_trash_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Throw_the_Spatula_in_the_trash_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

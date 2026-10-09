@@ -1,0 +1,10 @@
+==================== logs/elemental summary ====================
+Task folder                                  Status                       SR     TC    GCR   Exec     RU
+Fill_water_in_the_BathTub_plans_2026-10-08-1 ok                        0.000  0.000  0.000  1.000  1.000
+Make_the_kitchen_dark_plans_2026-10-08-17-57 ok                        1.000  1.000  1.000  1.000  1.000
+Pick_up_the_Pillow_plans_2026-10-08-17-57-23 ok                        1.000  1.000  1.000  1.000  1.000
+Put_mug_in_coffee_machine_plans_2026-10-08-1 ok                        1.000  1.000  1.000  1.000  1.000
+Throw_the_cloth_in_trash_and_Fill_water_in_t ok                        1.000  1.000  1.000  1.000  1.000
+Turn_on_the_laptop_plans_2026-10-08-17-57-23 ok                        1.000  1.000  1.000  1.000  1.000
+Average                                      6 tasks, 0 failed         0.833  0.833  0.833  1.000  1.000
+==============================================================

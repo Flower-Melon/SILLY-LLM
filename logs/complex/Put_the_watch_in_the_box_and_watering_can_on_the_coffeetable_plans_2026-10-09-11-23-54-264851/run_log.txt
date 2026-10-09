@@ -1,0 +1,16 @@
+Going to  Watch|-02.79|+00.58|-02.07 {'x': -2.7899985313415527, 'y': 0.5968407392501831, 'z': -2.068986415863037}
+Going to  WateringCan|-07.99|+00.00|-04.63 {'x': -8.001787185668945, 'y': 0.09862761199474335, 'z': -4.629465579986572}
+Reached:  WateringCan
+PIcking:  WateringCan
+Picking Up  WateringCan|-07.99|+00.00|-04.63 {'x': -8.001787185668945, 'y': 0.09862761199474335, 'z': -4.629465579986572}
+Going to  CoffeeTable|-02.47|+00.00|-02.49 {'x': -2.4740653038024902, 'y': 0.29043760895729065, 'z': -2.489455223083496}
+Reached:  Watch
+PIcking:  Watch
+Picking Up  Watch|-02.79|+00.58|-02.07 {'x': -2.7899985313415527, 'y': 0.5968407392501831, 'z': -2.068986415863037}
+Going to  Box|-02.36|+00.25|-01.65 {'x': -2.4611172676086426, 'y': 0.1576841026544571, 'z': -1.6734962463378906}
+Reached:  CoffeeTable
+Reached:  Box
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_watch_in_the_box_and_watering_can_on_the_coffeetable_plans_2026-10-09-11-23-54-264851/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_watch_in_the_box_and_watering_can_on_the_coffeetable_plans_2026-10-09-11-23-54-264851/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/complex/Put_the_watch_in_the_box_and_watering_can_on_the_coffeetable_plans_2026-10-09-11-23-54-264851/video_top_view.mp4

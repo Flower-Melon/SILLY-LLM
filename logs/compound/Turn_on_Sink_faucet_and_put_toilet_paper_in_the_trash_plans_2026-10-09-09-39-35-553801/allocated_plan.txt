@@ -1,0 +1,87 @@
+# Task Allocation Solution
+
+## Task Decomposition
+
+**SubTask 1: Turn on the Sink faucet**
+- Skills Required: `GoToObject`, `SwitchOn`
+- Objects involved: Sink (mass 0.0), Faucet (mass 0.0)
+
+**SubTask 2: Put toilet paper in the trash**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Objects involved: ToiletPaper (mass 0.2), GarbageCan (mass 0.7)
+
+**Dependency Analysis:** SubTask 1 and SubTask 2 are independent (no shared objects, no ordering constraint), so they can be executed **in parallel**.
+
+---
+
+## Robot Skill & Mass Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject | 100 |
+| robot2 | GoToObject, SwitchOn, SwitchOff | 100 |
+| robot3 | GoToObject, PickupObject, PutObject | 100 |
+| robot4 | GoToObject, SliceObject, PickupObject | 100 |
+
+All robots have a mass capacity of 100, which far exceeds the mass of any object involved (max 0.7). **Mass is not a constraint here** — allocation is driven purely by skills.
+
+---
+
+## Subtask-to-Robot Matching
+
+**SubTask 1 (Turn on Sink faucet)** requires `GoToObject` + `SwitchOn`:
+- robot1: ❌ (no SwitchOn)
+- robot2: ✅ (GoToObject, SwitchOn)
+- robot3: ❌ (no SwitchOn)
+- robot4: ❌ (no SwitchOn)
+- **→ Assigned to robot2**
+
+**SubTask 2 (Put toilet paper in trash)** requires `GoToObject` + `PickupObject` + `PutObject`:
+- robot1: ❌ (no PickupObject/PutObject)
+- robot2: ❌ (no PickupObject/PutObject)
+- robot3: ✅ (GoToObject, PickupObject, PutObject)
+- robot4: ❌ (no PutObject)
+- **→ Assigned to robot3**
+
+No team formation is needed — each subtask is fully satisfied by a single robot's skill set, and mass is well within capacity.
+
+---
+
+## Execution Plan
+
+Since the two subtasks are independent and assigned to **different robots**, they can run **in parallel** with no resource contention.
+
+```python
+import threading
+
+def turn_on_sink_faucet():
+    # SubTask 1 — robot2
+    GoToObject('Sink')
+    SwitchOn('Faucet')
+
+def put_toilet_paper_in_trash():
+    # SubTask 2 — robot3
+    GoToObject('ToiletPaper')
+    PickupObject('ToiletPaper')
+    GoToObject('GarbageCan')
+    PutObject('ToiletPaper', 'GarbageCan')
+
+task1_thread = threading.Thread(target=turn_on_sink_faucet)   # robot2
+task2_thread = threading.Thread(target=put_toilet_paper_in_trash)  # robot3
+
+task1_thread.start()
+task2_thread.start()
+task1_thread.join()
+task2_thread.join()
+```
+
+---
+
+## Summary
+
+| Subtask | Skills Required | Assigned Robot(s) | Mass Check | Execution |
+|---------|-----------------|-------------------|------------|-----------|
+| Turn on Sink faucet | GoToObject, SwitchOn | **robot2** | ✅ (0.0 ≤ 100) | Parallel |
+| Put toilet paper in trash | GoToObject, PickupObject, PutObject | **robot3** | ✅ (0.7 ≤ 100) | Parallel |
+
+**Minimum robots used: 2** (robot2 and robot3). No teams required — each subtask maps cleanly to a single robot with the exact skill set, and both subtasks run concurrently since they are independent and use distinct robots.

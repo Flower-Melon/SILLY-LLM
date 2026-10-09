@@ -1,0 +1,8 @@
+Going to  Laptop|-01.76|+00.59|-00.11 {'x': -1.760751724243164, 'y': 0.7342485785484314, 'z': -0.11289462447166443}
+Reached:  Laptop
+Switching On:  Laptop
+Going to  Laptop|-01.76|+00.59|-00.11 {'x': -1.76, 'y': 0.59, 'z': -0.11}
+Reached:  Laptop|-01.76|+00.59|-00.11
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Turn_on_the_laptop_plans_2026-10-08-17-57-23-891890/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Turn_on_the_laptop_plans_2026-10-08-17-57-23-891890/video_top_view.mp4

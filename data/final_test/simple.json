@@ -1,0 +1,171 @@
+[
+  {
+    "task": "Put apple in fridge and switch off the light",
+    "floor_plan": 15,
+    "robot list": [
+      1,
+      2,
+      3
+    ],
+    "object_states": [
+      {
+        "name": "Fridge",
+        "contains": [
+          "Apple"
+        ],
+        "state": null
+      },
+      {
+        "name": "LightSwitch",
+        "contains": [],
+        "state": "OFF"
+      }
+    ],
+    "trans": 1,
+    "max_trans": 1
+  },
+  {
+    "task": "Turn off floor lamp",
+    "floor_plan": 209,
+    "robot list": [
+      1,
+      2
+    ],
+    "object_states": [
+      {
+        "name": "FloorLamp",
+        "contains": [],
+        "state": "OFF"
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Break a vase and Turn on TV",
+    "floor_plan": 209,
+    "robot list": [
+      2,
+      3,
+      4
+    ],
+    "object_states": [
+      {
+        "name": "Vase",
+        "contains": [],
+        "state": "BROKEN"
+      },
+      {
+        "name": "Television",
+        "contains": [],
+        "state": "ON"
+      }
+    ],
+    "trans": 0,
+    "max_trans": 1
+  },
+  {
+    "task": "Chill the apple and wash the knife",
+    "floor_plan": 21,
+    "robot list": [
+      1,
+      2
+    ],
+    "object_states": [
+      {
+        "name": "Fridge",
+        "contains": [
+          "Apple"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Put the baseballbat and tennis racket on the bed",
+    "floor_plan": 303,
+    "robot list": [
+      1,
+      2
+    ],
+    "object_states": [
+      {
+        "name": "Bed",
+        "contains": [
+          "BaseballBat",
+          "TennisRacket"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Put the book in the box and Turn on the mobile phone",
+    "floor_plan": 303,
+    "robot list": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "object_states": [
+      {
+        "name": "Box",
+        "contains": [
+          "Book"
+        ],
+        "state": null
+      },
+      {
+        "name": "CellPhone",
+        "contains": [],
+        "state": "ON"
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Place the Bar of soap in the sink first and then place dishsponge in the sink",
+    "floor_plan": 414,
+    "robot list": [
+      1,
+      2,
+      3
+    ],
+    "object_states": [
+      {
+        "name": "Sink",
+        "contains": [
+          "SoapBar",
+          "ScrubBrush"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Slice the tomato",
+    "floor_plan": 6,
+    "robot list": [
+      2,
+      3,
+      4
+    ],
+    "object_states": [
+      {
+        "name": "Tomato",
+        "contains": [],
+        "state": "SLICED"
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  }
+]

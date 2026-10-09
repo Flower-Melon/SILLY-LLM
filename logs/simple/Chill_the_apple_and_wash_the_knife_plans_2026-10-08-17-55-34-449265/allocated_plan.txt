@@ -1,0 +1,72 @@
+# TASK ALLOCATION SOLUTION
+
+## Step 1: Analyze Subtasks, Skills, and Mass Requirements
+
+**SubTask 1: Chill the apple**
+- Skills Required: `GoToObject`, `PickupObject`, `OpenObject`, `PutObject`, `CloseObject`
+- Objects involved (picked up): Apple (mass = 0.2)
+- Mass requirement: 0.2
+
+**SubTask 2: Wash the knife**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`, `SwitchOn`, `SwitchOff`
+- Objects involved (picked up): Knife (mass = 0.18)
+- Mass requirement: 0.18
+
+## Step 2: Analyze Robot Capabilities
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+| robot2 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+
+**Observation:** Both robots have identical skill sets (13 skills each) and identical mass capacity (100). This is the case where **all robots share the same skills and mass capacity** — so allocation is driven purely by **parallelization and minimum robot count**.
+
+## Step 3: Skill & Mass Matching
+
+**SubTask 1 (Chill the apple):**
+- Required skills: GoToObject ✓, PickupObject ✓, OpenObject ✓, PutObject ✓, CloseObject ✓
+- robot1 has all required skills ✓
+- robot2 has all required skills ✓
+- Mass: 0.2 ≤ 100 ✓ (both robots qualify)
+
+**SubTask 2 (Wash the knife):**
+- Required skills: GoToObject ✓, PickupObject ✓, PutObject ✓, SwitchOn ✓, SwitchOff ✓
+- robot1 has all required skills ✓
+- robot2 has all required skills ✓
+- Mass: 0.18 ≤ 100 ✓ (both robots qualify)
+
+No skill gaps and no mass gaps — **no teams required**.
+
+## Step 4: Dependency & Parallelization Analysis
+
+- SubTask 1 and SubTask 2 are **independent** (no shared objects, no ordering dependency).
+- The task decomposition explicitly states they can be **parallelized**.
+- Since we have 2 robots and 2 independent subtasks, we can assign one subtask per robot and run them **in parallel**.
+
+## Step 5: Minimum Robot Allocation
+
+- Minimum robots needed = **2** (one per independent subtask, since a single robot cannot execute both subtasks simultaneously).
+- Assign **robot1 → SubTask 1 (Chill the apple)**
+- Assign **robot2 → SubTask 2 (Wash the knife)**
+- Execute in **parallel**.
+
+## Final Allocation
+
+| SubTask | Assigned Robot | Skills Match | Mass Check | Execution |
+|---------|---------------|--------------|------------|-----------|
+| Chill the apple | robot1 | ✓ All 5 skills present | 0.2 ≤ 100 ✓ | Parallel |
+| Wash the knife | robot2 | ✓ All 5 skills present | 0.18 ≤ 100 ✓ | Parallel |
+
+**No teams required.** Both robots possess the full skill set and ample mass capacity. The two independent subtasks are assigned to two separate robots and executed concurrently, achieving the minimum robot count (2) while maximizing parallelism.
+
+```python
+# Allocation
+task1_thread = threading.Thread(target=chill_apple)   # robot1
+task2_thread = threading.Thread(target=wash_knife)    # robot2
+
+task1_thread.start()
+task2_thread.start()
+task1_thread.join()
+task2_thread.join()
+# Task "Chill the apple and wash the knife" is done
+```

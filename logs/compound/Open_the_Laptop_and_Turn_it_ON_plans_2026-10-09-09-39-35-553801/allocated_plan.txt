@@ -1,0 +1,65 @@
+# Task Allocation Solution: Open the Laptop and Turn it ON
+
+## Step 1: Task Decomposition
+
+The task decomposes into two **sequential** subtasks (the laptop must be opened before it can be switched on):
+
+| Subtask | Action | Skills Required | Object | Object Mass |
+|---------|--------|-----------------|--------|-------------|
+| SubTask 1 | Open the Laptop | `GoToObject`, `OpenObject` | Laptop | 2.3 |
+| SubTask 2 | Turn the Laptop ON | `GoToObject`, `SwitchOn` | Laptop | 2.3 |
+
+## Step 2: Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, SwitchOn, SwitchOff | 100 |
+| robot2 | GoToObject, PickupObject, PutObject | 100 |
+| robot3 | GoToObject, OpenObject, CloseObject | 100 |
+
+**Skill matching:**
+- **SubTask 1 (Open Laptop)** requires `GoToObject` + `OpenObject` → only **robot3** has both skills.
+- **SubTask 2 (Turn Laptop ON)** requires `GoToObject` + `SwitchOn` → only **robot1** has both skills.
+
+**Mass check:** The Laptop's mass (2.3) is far below every robot's capacity (100), so mass is not a constraint here. No team formation is needed for mass reasons.
+
+## Step 3: Dependency & Parallelism Analysis
+
+- SubTask 2 **depends on** SubTask 1 (a closed laptop cannot be switched on).
+- Therefore the two subtasks must run **sequentially**, not in parallel.
+- Since each subtask is handled by a *different* robot, there is no shared-robot conflict — but the ordering constraint still forces serialization.
+
+## Step 4: Allocation
+
+- **SubTask 1 → robot3** (only robot with `OpenObject`)
+- **SubTask 2 → robot1** (only robot with `SwitchOn`)
+
+Minimum number of robots required: **2** (robot3 and robot1). robot2 is not needed.
+
+## Step 5: Execution Plan
+
+```
+1. robot3: GoToObject('Laptop')  →  OpenObject('Laptop')     # SubTask 1
+2. (wait for SubTask 1 to complete)
+3. robot1: GoToObject('Laptop')  →  SwitchOn('Laptop')       # SubTask 2
+```
+
+```python
+def open_and_turn_on_laptop():
+    # SubTask 1: Open the Laptop  (robot3)
+    GoToObject('Laptop')      # robot3
+    OpenObject('Laptop')      # robot3
+
+    # SubTask 2: Turn the Laptop ON  (robot1) — must wait for SubTask 1
+    GoToObject('Laptop')      # robot1
+    SwitchOn('Laptop')        # robot1
+```
+
+## Summary
+
+| Subtask | Assigned Robot | Skills Used | Mass OK? | Order |
+|---------|----------------|-------------|----------|-------|
+| Open the Laptop | robot3 | GoToObject, OpenObject | ✅ (2.3 ≤ 100) | 1st |
+| Turn the Laptop ON | robot1 | GoToObject, SwitchOn | ✅ (2.3 ≤ 100) | 2nd (after SubTask 1) |
+
+**Allocation rationale:** No single robot possesses both `OpenObject` and `SwitchOn`, so the task cannot be done by one robot. Because the subtasks are dependent (open → switch on), they are executed **sequentially** across two robots. Mass capacity is not a limiting factor (all capacities = 100 ≫ 2.3), so no team formation is required. **Minimum robots used: 2 (robot1 and robot3).**

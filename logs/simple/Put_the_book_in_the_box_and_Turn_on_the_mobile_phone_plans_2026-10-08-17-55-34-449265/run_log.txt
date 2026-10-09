@@ -1,0 +1,19 @@
+Going to  Book|+00.34|+00.72|-02.65 {'x': 0.33750826120376587, 'y': 0.7401875853538513, 'z': -2.6503989696502686}
+Going to  CellPhone|+00.59|+00.72|-02.67 {'x': 0.585846483707428, 'y': 0.7282057404518127, 'z': -2.666968584060669}
+Reached:  CellPhone
+PIcking:  CellPhone
+Picking Up  CellPhone|+00.59|+00.72|-02.67 {'x': 0.585846483707428, 'y': 0.7282057404518127, 'z': -2.666968584060669}
+Switching On:  CellPhone
+Going to  CellPhone|+00.59|+00.72|-02.67 {'x': 0.59, 'y': 0.72, 'z': -2.67}
+Reached:  CellPhone|+00.59|+00.72|-02.67
+Reached:  Book
+PIcking:  Book
+Picking Up  Book|+00.34|+00.72|-02.65 {'x': 0.33750826120376587, 'y': 0.7401875853538513, 'z': -2.6503989696502686}
+Going to  Box|+02.00|+00.28|-01.04 {'x': 2.1026415824890137, 'y': 0.237269788980484, 'z': -1.003549337387085}
+Reached:  Box
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_the_book_in_the_box_and_Turn_on_the_mobile_phone_plans_2026-10-08-17-55-34-449265/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_the_book_in_the_box_and_Turn_on_the_mobile_phone_plans_2026-10-08-17-55-34-449265/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_the_book_in_the_box_and_Turn_on_the_mobile_phone_plans_2026-10-08-17-55-34-449265/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_the_book_in_the_box_and_Turn_on_the_mobile_phone_plans_2026-10-08-17-55-34-449265/video_agent_4.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Put_the_book_in_the_box_and_Turn_on_the_mobile_phone_plans_2026-10-08-17-55-34-449265/video_top_view.mp4

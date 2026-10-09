@@ -1,0 +1,35 @@
+Going to  Apple|-01.90|+00.87|-01.40 {'x': -1.899120807647705, 'y': 0.8741069436073303, 'z': -1.3992438316345215}
+Going to  Knife|+00.74|+00.76|-00.19 {'x': 0.7141741514205933, 'y': 0.7575367093086243, 'z': -0.21821387112140656}
+Reached:  Apple
+PIcking:  Apple
+Picking Up  Apple|-01.90|+00.87|-01.40 {'x': -1.8985345363616943, 'y': 0.8740527629852295, 'z': -1.398831844329834}
+Going to  Fridge|+00.68|-00.03|-01.96 {'x': 0.6799988746643066, 'y': 0.8935573101043701, 'z': -1.9614769220352173}
+Reached:  Knife
+PIcking:  Knife
+Picking Up  Knife|+00.74|+00.76|-00.19 {'x': 0.7141741514205933, 'y': 0.7575367093086243, 'z': -0.21821387112140656}
+Going to  Sink|+00.75|+00.88|-00.68 {'x': 0.7530224919319153, 'y': 0.8191193342208862, 'z': -0.6798887848854065}
+Reached:  Sink
+This target object is NOT a receptacle!
+Reached:  Fridge
+Going to  Fridge|+00.68|-00.03|-01.96 {'x': 0.68, 'y': -0.03, 'z': -1.96}
+Reached:  Fridge|+00.68|-00.03|-01.96
+Switching On:  Faucet
+Going to  Faucet|+01.03|+00.87|-00.68 {'x': 1.03, 'y': 0.87, 'z': -0.68}
+Reached:  Faucet|+01.03|+00.87|-00.68
+Going to  Fridge|+00.68|-00.03|-01.96 {'x': 0.68, 'y': -0.03, 'z': -1.96}
+Reached:  Fridge|+00.68|-00.03|-01.96
+Switching Off:  Faucet
+Going to  Faucet|+01.03|+00.87|-00.68 {'x': 1.03, 'y': 0.87, 'z': -0.68}
+Reached:  Faucet|+01.03|+00.87|-00.68
+PIcking:  Knife
+Picking Up  Knife|+00.74|+00.76|-00.19 {'x': 0.4984523057937622, 'y': 1.1934947967529297, 'z': -0.6645897626876831}
+InvalidOperationException: Agent hand has something in it already! Can't pick up anything else. trace:   at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.pickupObject (SimObjPhysics target, System.Boolean forceAction, System.Boolean manualInteract, System.Boolean markActionFinished) [0x0003c] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at UnityStandardAssets.Characters.FirstPerson.PhysicsRemoteFPSAgentController.PickupObject (System.String objectId, System.Boolean forceAction, System.Boolean manualInteract) [0x00009] in <40d6a6c54fa349fab67f7470c3432f83>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 
+Going to  CounterTop|+00.79|+00.92|-00.11 {'x': 0.8001425266265869, 'y': 0.8812419176101685, 'z': -0.41060352325439453}
+Reached:  CounterTop
+SR:1, TC:1, GCR:1.0, Exec:0.8, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Chill_the_apple_and_wash_the_knife_plans_2026-10-08-17-55-34-449265/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Chill_the_apple_and_wash_the_knife_plans_2026-10-08-17-55-34-449265/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/simple/Chill_the_apple_and_wash_the_knife_plans_2026-10-08-17-55-34-449265/video_top_view.mp4

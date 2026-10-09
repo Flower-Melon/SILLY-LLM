@@ -1,0 +1,87 @@
+# Task Allocation Analysis: Wash the Fork and Put It in the Bowl
+
+## Step 1: Subtask Decomposition & Dependencies
+
+| Subtask | Skills Required | Objects & Mass | Dependency |
+|---------|----------------|----------------|------------|
+| **SubTask 1: Wash the Fork** | GoToObject, PickupObject, PutObject, SwitchOn, SwitchOff | Fork (0.04), Sink (0.0), Faucet (0.0) | None (can start immediately) |
+| **SubTask 2: Put the Fork in the Bowl** | GoToObject, PickupObject, PutObject | Fork (0.04), Bowl (0.47) | **Depends on SubTask 1** (fork must be washed first) |
+
+**Execution order:** SubTask 1 → SubTask 2 (strictly sequential, cannot parallelize).
+
+---
+
+## Step 2: Robot Capability Analysis
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, BreakObject, ThrowObject | 100 |
+| robot2 | GoToObject, SwitchOn, SwitchOff | 100 |
+| robot3 | GoToObject, PickupObject, PutObject | 100 |
+
+**Mass check:** All objects involved (Fork 0.04, Bowl 0.47, Sink 0.0, Faucet 0.0) are far below every robot's capacity of 100. **Mass is not a constraint here** — only skills matter.
+
+---
+
+## Step 3: Skill Matching per Subtask
+
+### SubTask 1: Wash the Fork
+Required: `GoToObject, PickupObject, PutObject, SwitchOn, SwitchOff`
+
+- robot1: has GoToObject only → ❌ missing PickupObject, PutObject, SwitchOn, SwitchOff
+- robot2: has GoToObject, SwitchOn, SwitchOff → ❌ missing PickupObject, PutObject
+- robot3: has GoToObject, PickupObject, PutObject → ❌ missing SwitchOn, SwitchOff
+
+**No single robot has all 5 skills.** → **Form a team.**
+
+- **Team {robot2, robot3}** union of skills = {GoToObject, SwitchOn, SwitchOff, PickupObject, PutObject} ✅ **covers all required skills.**
+- Team {robot1, robot2, robot3} would also work but uses 3 robots — not minimal.
+
+✅ **SubTask 1 → Team of robot2 + robot3** (minimum team size = 2).
+
+### SubTask 2: Put the Fork in the Bowl
+Required: `GoToObject, PickupObject, PutObject`
+
+- robot3 alone has all three skills ✅
+
+✅ **SubTask 2 → robot3** (single robot, no team needed).
+
+---
+
+## Step 4: Minimizing Total Robots Used
+
+We must use the **minimum number of distinct robots** across the whole task.
+
+- SubTask 1 needs {robot2, robot3}
+- SubTask 2 needs {robot3}
+
+Union = **{robot2, robot3}** → only **2 robots total** are required. robot1 is not needed at all.
+
+---
+
+## Step 5: Execution Schedule
+
+Because SubTask 2 depends on SubTask 1, they run **sequentially**. robot3 participates in both, so it must finish its role in SubTask 1 before starting SubTask 2.
+
+```
+Time →
+SubTask 1 (Wash Fork):   [robot2: GoToObject, SwitchOn, SwitchOff]  ‖  [robot3: GoToObject, PickupObject, PutObject]
+                                          ↓ (SubTask 1 complete)
+SubTask 2 (Put in Bowl): [robot3: GoToObject, PickupObject, PutObject]
+```
+
+Within SubTask 1, robot2 and robot3 work **in parallel** on their respective skill portions (robot3 handles the fork manipulation; robot2 handles the faucet switching).
+
+---
+
+## Final Allocation
+
+| Subtask | Assigned To | Skills Covered | Mass OK? | Timing |
+|---------|-------------|----------------|----------|--------|
+| **1. Wash the Fork** | **Team: robot2 + robot3** | robot2 → SwitchOn/SwitchOff; robot3 → PickupObject/PutObject | ✅ (0.04 ≪ 100) | Starts immediately |
+| **2. Put the Fork in the Bowl** | **robot3** | GoToObject, PickupObject, PutObject | ✅ (0.47 ≪ 100) | After SubTask 1 completes |
+
+**Robots used: 2 (robot2, robot3)** — the minimum feasible set.
+**robot1 is idle** (its skills — BreakObject, ThrowObject — are irrelevant to this task).
+
+**Execution mode:** Sequential between subtasks (dependency), parallel within SubTask 1's team.

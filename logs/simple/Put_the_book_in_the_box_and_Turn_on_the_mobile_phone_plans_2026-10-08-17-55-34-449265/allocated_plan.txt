@@ -1,0 +1,93 @@
+# Task Allocation Solution
+
+## Task Analysis
+
+**Task Description:** Put the book in the box and Turn on the mobile phone
+
+### Subtask Decomposition
+
+**SubTask 1: Put the book in the box**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`
+- Objects involved: Book (mass 0.5), Box (mass 0.3)
+- Max mass handled: 0.5 (Book)
+
+**SubTask 2: Turn on the mobile phone**
+- Skills Required: `GoToObject`, `PickupObject`, `SwitchOn`
+- Objects involved: CellPhone (mass 0.16)
+- Max mass handled: 0.16 (CellPhone)
+
+### Dependency Analysis
+SubTask 1 and SubTask 2 are **independent** — they operate on different objects and neither depends on the other's completion. They can be executed **in parallel**.
+
+---
+
+## Robot Capability Analysis
+
+All four robots have **identical skill sets** (13 skills each) and **identical mass capacity (100)**:
+
+| Robot | Required Skills Present? | Mass Capacity | Max Object Mass Needed |
+|-------|--------------------------|---------------|------------------------|
+| robot1 | ✅ GoToObject, PickupObject, PutObject, SwitchOn | 100 | 0.5 ✅ |
+| robot2 | ✅ GoToObject, PickupObject, PutObject, SwitchOn | 100 | 0.5 ✅ |
+| robot3 | ✅ GoToObject, PickupObject, PutObject, SwitchOn | 100 | 0.5 ✅ |
+| robot4 | ✅ GoToObject, PickupObject, PutObject, SwitchOn | 100 | 0.5 ✅ |
+
+**Key observations:**
+- All robots share the same skills and mass capacity → allocation is driven purely by **parallelism** (minimizing robots while respecting independence).
+- Every robot can individually satisfy both subtasks (skills ✅ and mass ✅). No teams are needed.
+- Since the subtasks are independent, we can run them **in parallel** using **2 robots** — this is the minimum number of robots needed to exploit the available parallelism.
+
+---
+
+## Allocation Decision
+
+| Subtask | Assigned Robot | Skills Match | Mass Check | Execution |
+|---------|---------------|--------------|------------|-----------|
+| SubTask 1: Put book in box | **robot1** | ✅ | 0.5 ≤ 100 ✅ | Parallel |
+| SubTask 2: Turn on mobile phone | **robot2** | ✅ | 0.16 ≤ 100 ✅ | Parallel |
+
+- **Minimum robots used: 2** (robot1 and robot2). Robots 3 and 4 are not needed.
+- No teams required — each subtask is fully satisfiable by a single robot.
+- Subtasks run **in parallel** since they are independent, so both robots start immediately.
+
+---
+
+## Execution Code
+
+```python
+import threading
+
+def put_book_in_box():
+    # SubTask 1: Put the book in the box (robot1)
+    GoToObject('Book')
+    PickupObject('Book')
+    GoToObject('Box')
+    PutObject('Book', 'Box')
+
+def turn_on_mobile_phone():
+    # SubTask 2: Turn on the mobile phone (robot2)
+    GoToObject('CellPhone')
+    PickupObject('CellPhone')
+    SwitchOn('CellPhone')
+
+# Parallel execution on two separate robots
+task1_thread = threading.Thread(target=put_book_in_box)      # robot1
+task2_thread = threading.Thread(target=turn_on_mobile_phone) # robot2
+
+task1_thread.start()
+task2_thread.start()
+
+task1_thread.join()
+task2_thread.join()
+```
+
+---
+
+## Summary
+
+- **SubTasks identified:** 2 (Put book in box; Turn on mobile phone)
+- **Dependencies:** None — fully independent → parallel execution
+- **Robots used:** 2 (robot1, robot2) — the minimum needed to parallelize
+- **Teams required:** None (each subtask fits a single robot's skills and mass capacity)
+- **Mass check:** All object masses (0.5, 0.16) are far below the 100 mass capacity of every robot
+- **Skill check:** All robots possess the complete required skill sets (`GoToObject`, `PickupObject`, `PutObject`, `SwitchOn`)

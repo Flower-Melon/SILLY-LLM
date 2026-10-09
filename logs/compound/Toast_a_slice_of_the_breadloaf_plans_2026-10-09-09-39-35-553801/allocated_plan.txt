@@ -1,0 +1,108 @@
+# Task Allocation for "Toast a slice of the breadloaf"
+
+## Step 1: Analyze Subtasks, Skills, and Mass Requirements
+
+**SubTask 1: Slice the Bread**
+- Skills Required: `GoToObject`, `PickupObject`, `SliceObject`, `PutObject`
+- Objects involved: Knife (mass 0.18), Bread (mass 0.7), CounterTop (mass 0.0)
+- Max mass to be picked up: 0.7 (Bread) — well within all robots' capacity (100)
+
+**SubTask 2: Toast the Bread slice**
+- Skills Required: `GoToObject`, `PickupObject`, `PutObject`, `SwitchOn`, `SwitchOff`
+- Objects involved: Bread (mass 0.7), Toaster (mass 5.0), Plate (mass 0.62)
+- Max mass to be picked up: 0.7 (Bread) — well within all robots' capacity (100)
+
+## Step 2: Analyze Robot Skills
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, SwitchOn, SwitchOff | 100 |
+| robot2 | GoToObject, PickupObject, PutObject | 100 |
+| robot3 | GoToObject, SliceObject, PickupObject | 100 |
+
+**Skill gap analysis:**
+
+- **SubTask 1** requires `{GoToObject, PickupObject, SliceObject, PutObject}`.
+  - No single robot has all four skills:
+    - robot1: missing PickupObject, SliceObject, PutObject
+    - robot2: missing SliceObject
+    - robot3: missing PutObject
+  - **Team required.** robot2 ∪ robot3 = `{GoToObject, PickupObject, PutObject, SliceObject}` ✓ (all skills covered)
+
+- **SubTask 2** requires `{GoToObject, PickupObject, PutObject, SwitchOn, SwitchOff}`.
+  - No single robot has all five skills:
+    - robot1: missing PickupObject, PutObject
+    - robot2: missing SwitchOn, SwitchOff
+    - robot3: missing PutObject, SwitchOn, SwitchOff
+  - **Team required.** robot1 ∪ robot2 = `{GoToObject, SwitchOn, SwitchOff, PickupObject, PutObject}` ✓ (all skills covered)
+
+## Step 3: Determine Execution Order
+
+SubTask 2 depends on SubTask 1 (the bread must be sliced before it can be toasted). Therefore, they must be executed **sequentially**: SubTask 1 first, then SubTask 2.
+
+## Step 4: Minimize Number of Robots
+
+- SubTask 1 needs team {robot2, robot3}
+- SubTask 2 needs team {robot1, robot2}
+
+The union of all robots used is {robot1, robot2, robot3} — all three robots are needed because:
+- robot3 is the only robot with `SliceObject` (required for SubTask 1)
+- robot1 is the only robot with `SwitchOn`/`SwitchOff` (required for SubTask 2)
+- robot2 provides `PickupObject`/`PutObject` for both subtasks
+
+No smaller set of robots can cover all required skills across both subtasks.
+
+## Step 5: Final Allocation
+
+| SubTask | Assigned Team | Skills Covered | Mass Check | Execution |
+|---------|---------------|----------------|------------|-----------|
+| 1: Slice the Bread | robot2 + robot3 | GoToObject, PickupObject, SliceObject, PutObject | 0.7 ≤ 100 ✓ | Sequential (first) |
+| 2: Toast the Bread slice | robot1 + robot2 | GoToObject, PickupObject, PutObject, SwitchOn, SwitchOff | 0.7 ≤ 100 ✓ | Sequential (after SubTask 1) |
+
+**Minimum robots used: 3 (robot1, robot2, robot3)**
+
+## Step 6: Execution Code
+
+```python
+import time
+import threading
+
+def slice_bread():
+    # SubTask 1: Slice the Bread — team {robot2, robot3}
+    # robot3: GoToObject, PickupObject, SliceObject
+    # robot2: GoToObject, PutObject
+    GoToObject('Knife')          # robot3
+    PickupObject('Knife')        # robot3
+    GoToObject('Bread')          # robot3
+    SliceObject('Bread')         # robot3
+    GoToObject('CounterTop')     # robot2
+    PutObject('Knife', 'CounterTop')  # robot2
+
+def toast_bread():
+    # SubTask 2: Toast the Bread slice — team {robot1, robot2}
+    # robot2: GoToObject, PickupObject, PutObject
+    # robot1: GoToObject, SwitchOn, SwitchOff
+    GoToObject('Bread')          # robot2
+    PickupObject('Bread')        # robot2
+    GoToObject('Toaster')        # robot2
+    PutObject('Bread', 'Toaster')# robot2
+    SwitchOn('Toaster')          # robot1
+    time.sleep(5)
+    SwitchOff('Toaster')         # robot1
+    GoToObject('Bread')          # robot2
+    PickupObject('Bread')        # robot2
+    GoToObject('Plate')          # robot2
+    PutObject('Bread', 'Plate')  # robot2
+
+# Sequential execution: SubTask 1 must complete before SubTask 2
+slice_bread()
+toast_bread()
+```
+
+## Summary
+
+- **SubTask 1 (Slice Bread)** → team of **robot2 + robot3** (robot3 handles slicing/pickup, robot2 handles putting the knife back).
+- **SubTask 2 (Toast Bread)** → team of **robot1 + robot2** (robot2 handles bread transport, robot1 handles toaster switches).
+- **Execution:** Sequential — SubTask 2 depends on SubTask 1's output (sliced bread).
+- **Minimum robots required: 3** — all robots are necessary because each contributes a unique critical skill (`SliceObject` only on robot3; `SwitchOn`/`SwitchOff` only on robot1; `PickupObject`/`PutObject` on robot2).
+- **Mass:** All objects handled (max 0.7 kg) are far below every robot's 100 kg capacity, so mass is not a constraint here.

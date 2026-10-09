@@ -1,0 +1,12 @@
+==================== logs/complex summary ====================
+Task folder                                  Status                       SR     TC    GCR   Exec     RU
+Cook_the_potato_and_put_it_in_the_Fridge_pla ok                        0.000  0.000  0.500  0.875  1.000
+Place_the_laptop_on_the_bed_plans_2026-10-09 ok                        1.000  1.000  1.000  1.000  1.000
+Put_the_Box_on_the_sofa_and_the_bowl_in_the_ ok                        1.000  1.000  1.000  1.000  1.000
+Put_the_vase_on_the_sofa_plans_2026-10-09-11 ok                        0.000  0.000  0.000  1.000  1.000
+Put_the_watch_and_Keychain_inside_the_drawer ok                        0.000  0.000  0.000  0.875  1.000
+Put_the_watch_in_the_box_and_watering_can_on ok                        1.000  1.000  1.000  1.000  1.000
+Slice_the_lettuce_trash_the_mug_and_switch_o ok                        1.000  1.000  1.000  1.000  1.000
+Trash_the_book_and_newspaper_plans_2026-10-0 ok                        1.000  1.000  1.000  1.000  1.000
+Average                                      8 tasks, 0 failed         0.625  0.625  0.688  0.969  1.000
+==============================================================

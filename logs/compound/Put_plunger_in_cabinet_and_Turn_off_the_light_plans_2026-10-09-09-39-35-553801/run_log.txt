@@ -1,0 +1,16 @@
+Going to  Plunger|-02.84|+00.00|+00.13 {'x': -2.837317943572998, 'y': 0.27142244577407837, 'z': 0.1319180727005005}Going to  LightSwitch|-01.68|+01.44|+03.61 {'x': -1.6760001182556152, 'y': 1.4420000314712524, 'z': 3.5919666290283203}
+
+Reached:  Plunger
+PIcking:  Plunger
+Picking Up  Plunger|-02.84|+00.00|+00.13 {'x': -2.837317943572998, 'y': 0.27142244577407837, 'z': 0.1319180727005005}
+Reached:  LightSwitch
+Switching Off:  LightSwitch
+Going to  LightSwitch|-01.68|+01.44|+03.61 {'x': -1.68, 'y': 1.44, 'z': 3.61}
+Reached:  LightSwitch|-01.68|+01.44|+03.61
+Going to  Cabinet|-02.41|+00.37|+02.86 {'x': -2.658266544342041, 'y': 0.37365737557411194, 'z': 2.660383939743042}
+Reached:  Cabinet
+Target openable Receptacle is CLOSED, can't place if target is not open!
+SR:0, TC:0, GCR:0.5, Exec:0.6666666666666666, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_plunger_in_cabinet_and_Turn_off_the_light_plans_2026-10-09-09-39-35-553801/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_plunger_in_cabinet_and_Turn_off_the_light_plans_2026-10-09-09-39-35-553801/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/compound/Put_plunger_in_cabinet_and_Turn_off_the_light_plans_2026-10-09-09-39-35-553801/video_top_view.mp4

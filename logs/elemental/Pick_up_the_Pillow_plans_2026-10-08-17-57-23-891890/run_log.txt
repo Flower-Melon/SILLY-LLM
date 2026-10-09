@@ -1,0 +1,10 @@
+Going to  Pillow|-03.15|+00.68|+03.42 {'x': -3.1460347175598145, 'y': 0.6724454164505005, 'z': 3.419917106628418}
+Reached:  Pillow
+PIcking:  Pillow
+Picking Up  Pillow|-03.15|+00.68|+03.42 {'x': -3.1460347175598145, 'y': 0.6724454164505005, 'z': 3.419917106628418}
+SR:1, TC:1, GCR:1.0, Exec:1.0, RU:1.0
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Pick_up_the_Pillow_plans_2026-10-08-17-57-23-891890/video_agent_1.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Pick_up_the_Pillow_plans_2026-10-08-17-57-23-891890/video_agent_2.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Pick_up_the_Pillow_plans_2026-10-08-17-57-23-891890/video_agent_3.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Pick_up_the_Pillow_plans_2026-10-08-17-57-23-891890/video_agent_4.mp4
+Video written: /home/xb/project/SILLY-LLM/logs/elemental/Pick_up_the_Pillow_plans_2026-10-08-17-57-23-891890/video_top_view.mp4

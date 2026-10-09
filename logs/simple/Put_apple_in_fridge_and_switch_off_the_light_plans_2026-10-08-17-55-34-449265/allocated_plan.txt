@@ -1,0 +1,59 @@
+# TASK ALLOCATION SOLUTION
+
+## Step 1: Analyze Subtasks, Skills, and Mass Requirements
+
+**SubTask 1: Put apple in the fridge**
+- Skills Required: `GoToObject`, `PickupObject`, `OpenObject`, `PutObject`, `CloseObject`
+- Object being manipulated: Apple (mass = 0.2)
+- Receptacle: Fridge (mass = 0.0)
+
+**SubTask 2: Switch off the light**
+- Skills Required: `GoToObject`, `SwitchOff`
+- Object being manipulated: LightSwitch (mass = 0.0)
+
+## Step 2: Analyze Robot Capabilities
+
+All three robots are **identical** in both skills and mass capacity:
+
+| Robot | Skills | Mass Capacity |
+|-------|--------|---------------|
+| robot1 | GoToObject, OpenObject, CloseObject, BreakObject, SliceObject, SwitchOn, SwitchOff, PickupObject, PutObject, DropHandObject, ThrowObject, PushObject, PullObject | 100 |
+| robot2 | (same 13 skills) | 100 |
+| robot3 | (same 13 skills) | 100 |
+
+**Observation:** All robots share the same skill set and the same mass capacity. Since all robots are equivalent, allocation is driven purely by **parallelization opportunity** and **minimum robot count**.
+
+## Step 3: Skill & Mass Feasibility Check
+
+**SubTask 1 (Put apple in fridge):**
+- Required skills: `GoToObject`, `PickupObject`, `OpenObject`, `PutObject`, `CloseObject` → ✅ All present in every robot.
+- Mass check: Apple = 0.2 ≤ 100 → ✅ Any single robot suffices.
+- **No team needed.**
+
+**SubTask 2 (Switch off light):**
+- Required skills: `GoToObject`, `SwitchOff` → ✅ All present in every robot.
+- Mass check: LightSwitch = 0.0 ≤ 100 → ✅ Any single robot suffices.
+- **No team needed.**
+
+## Step 4: Dependency & Parallelization Analysis
+
+- SubTask 1 and SubTask 2 operate on **different objects** (Apple/Fridge vs. LightSwitch) and share **no resources**.
+- Neither subtask depends on the other's completion.
+- Therefore, they are **independent** and can be executed **in parallel**.
+
+## Step 5: Minimum Robot Allocation
+
+Since the two subtasks are independent and can run in parallel, we need **2 robots** (one per subtask) to achieve parallel execution. Using only 1 robot would force serialization, which is not required here.
+
+- **SubTask 1** → assigned to **robot1** (has all required skills, mass capacity 100 ≥ 0.2)
+- **SubTask 2** → assigned to **robot2** (has all required skills, mass capacity 100 ≥ 0.0)
+- **robot3** → not needed (minimum robot count achieved with 2)
+
+## Final Allocation
+
+| SubTask | Assigned Robot | Skills Match | Mass OK | Execution |
+|---------|---------------|--------------|---------|-----------|
+| Put apple in fridge | robot1 | ✅ | ✅ (0.2 ≤ 100) | Parallel |
+| Switch off light | robot2 | ✅ | ✅ (0.0 ≤ 100) | Parallel |
+
+**Minimum robots used: 2** (robot1, robot2). No teams required since each subtask is fully satisfiable by a single robot. The subtasks run in parallel because they are independent and sufficient robots are available.

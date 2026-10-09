@@ -1,0 +1,99 @@
+[
+  {
+    "task": "Make the kitchen dark",
+    "floor_plan": 15,
+    "robot list": [
+      1
+    ],
+    "object_states": [
+      {
+        "name": "LightSwitch",
+        "contains": [],
+        "state": "OFF"
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Put mug in coffee machine",
+    "floor_plan": 21,
+    "robot list": [
+      1
+    ],
+    "object_states": [
+      {
+        "name": "CoffeeMachine",
+        "contains": [
+          "Mug"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Turn on the laptop",
+    "floor_plan": 303,
+    "robot list": [
+      3
+    ],
+    "object_states": [
+      {
+        "name": "Laptop",
+        "contains": [],
+        "state": "ON"
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Fill water in the BathTub",
+    "floor_plan": 414,
+    "robot list": [
+      1
+    ],
+    "object_states": [],
+    "trans": 0,
+    "max_trans": 0
+  },
+  {
+    "task": "Throw the cloth in trash and Fill water in the BathTub",
+    "floor_plan": 414,
+    "robot list": [
+      1
+    ],
+    "object_states": [
+      {
+        "name": "GarbageCan",
+        "contains": [
+          "Cloth"
+        ],
+        "state": null
+      }
+    ],
+    "trans": 1,
+    "max_trans": 1
+  },
+  {
+    "task": "Pick up the Pillow",
+    "floor_plan": 201,
+    "robot list": [
+      8,
+      7,
+      5,
+      10
+    ],
+    "object_states": [
+      {
+        "name": "Pillow",
+        "contains": [],
+        "state": "PICKED"
+      }
+    ],
+    "trans": 0,
+    "max_trans": 0
+  }
+]
